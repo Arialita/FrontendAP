@@ -1,0 +1,14 @@
+.btn{
+    border: none;
+    border-radius: 0;
+}
+
+.img{
+    height: 100px;
+    width: 100%;
+    background: white;
+}
+
+.card{
+    margin-top: 20%;
+}
