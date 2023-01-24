@@ -1,17 +1,14 @@
 <div class="container">
-    <div class="row">
+    <div class="row pb-1">
         <div class="col"></div>
-        <div class="col-lg-8 align-self-center">
-            <div class="card border-light bg-info-subtle">
+        <div class="col-lg-8 col-md-10 align-self-center">
+            <div class="card border-0">
                 <div class="img card-img-top"></div>
                 <div class="card-body">
-                    <h1 class="card-title text-center">Alejandro Aguilar</h1>
-                    <h3 class="card-subtitle text-muted">Estudiante</h3>
-                    <h4 class="card-subtitle text-muted">Posadas, Misiones</h4>
-                    <p class="card-text text-start">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis temporibus corrupti similique magni praesentium commodi earum alias vel. Vero voluptates, quae officia asperiores iusto doloremque. Expedita at deserunt quidem repudiandae.</p>
-                </div>
-                <div class="card-footer text-center">
-                    <app-contacto></app-contacto>
+                    <h1 class="card-title text-center">Alejandro Aguilar{{usuario.nombre}} {{usuario.apellido}}</h1>
+                    <h3 class="card-subtitle text-muted">Estudiante{{usuario.ocupacion}}</h3>
+                    <h4 class="card-subtitle text-muted">Posadas, Misiones{{usuario.localidad}}, {{usuario.provincia}}</h4>
+                    <p class="card-text text-start">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione cupiditate est consectetur eveniet, maxime autem. Numquam quis veritatis maxime ipsam sequi corrupti iure reprehenderit provident, eligendi quae distinctio quo amet?{{usuario.acerca_de}}</p>
                 </div>
             </div>
         </div>

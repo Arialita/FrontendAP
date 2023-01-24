@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class TrabajoComponent {
 
+  test:any[] = ['Uno: Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil delectus asperiores quos temporibus praesentium fugit voluptate? Quis, consequuntur blanditiis animi quam expedita cum alias praesentium, facere, officiis sint cumque delectus.']
+
 }
