@@ -1,4 +1,5 @@
 
+<ng-container *ngIf="!login; else isLogin">
 <!--Para el resto de los dispositivos-->
 <nav class="nav shadow justify-content-end d-sm-flex sticky-top d-none px-3 pt-2 pb-2 bg-light-subtle">
     <div class="icon-container">
@@ -9,27 +10,40 @@
     <button class="btn btn-outline-light text-dark " type="button"><i class="bi bi-github fs-4"></i></button>
     <button class="btn btn-outline-light text-dark " type="button"><i class="bi bi-linkedin fs-4"></i></button>
     <div class="vr text-dark mx-1"></div>
-    <button class=" btn btn-outline-light text-dark" type="button">Log in</button>
+    <button class=" btn btn-outline-light text-dark" type="button" [routerLink]="['/login']">Log in</button>
 </nav>
 
 <!--Para móviles-->
-<nav class="nav shadow navbar-expand-lg justify-content-end sticky-top d-xs-flex d-sm-none px-3 pt-2 pb-2 bg-light-subtle">
-    <div class="icon-container ms-auto">
+<nav class="nav shadow justify-content-end sticky-top d-xs-flex d-sm-none px-3  bg-light">
+    <div class="icon-container ms-auto pt-2">
         <i class="bi bi-terminal icon fs-2 align-middle"></i><p class="fs-6 user-select-none">Argentina programa</p>
     </div>
-    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="bi bi-list fs-2"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarToggler">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <button class=" btn btn-light" aria-pressed="true" routerLink="home" type="button">Home</button>
-            <button class=" btn btn-light " routerLink="trabajo" type="button">Trabajo</button>
-            <button class=" btn btn-light " routerLink="educacion" type="button">Educación</button>
-            <button class=" btn btn-light " routerLink="proyectos" type="button">Proyectos</button>
-            <button class=" btn btn-light " routerLink="habilidades" type="button">Habilidades</button>
-            <button class=" btn btn-light "  type="button">Contacto</button>
-            <div class="vr text-dark"></div>
-            <button class=" btn btn-light " type="button">Log in</button>
+        <ul class="navbar-nav ms-auto">
+            <button class="btn ms-auto btn-outline-light text-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            <li class="nav-item dropdown">
+                <ul class="dropdown-menu dropdown-menu-light">
+                    <li><button class=" btn btn-light dropdown-item" aria-pressed="true" routerLink="home" type="button">Home</button></li>
+                    <li><button class=" btn btn-light dropdown-item" routerLink="trabajo" type="button">Trabajo</button></li>
+                    <li><button class=" btn btn-light dropdown-item" routerLink="educacion" type="button">Educación</button></li>
+                    <li><button class=" btn btn-light dropdown-item" routerLink="proyectos" type="button">Proyectos</button></li>
+                    <li><button class=" btn btn-light dropdown-item" routerLink="habilidades" type="button">Habilidades</button></li>
+                    <li><button class=" btn btn-light dropdown-item"  type="button">Contacto</button></li>
+                    <li><hr class="dropdown-divider bg-light "></li>
+                    <li><button class=" btn btn-light dropdown-item" type="button" [routerLink]="['/login']" >Log in</button></li>
+                </ul>
+            </li>
         </ul>
-    </div>
 </nav>
+</ng-container>
+<ng-template #isLogin>
+    <nav class="nav shadow justify-content-end sticky-top pt-2 pb-2 bg-light-subtle">
+        <div class="me-auto">
+            <button class="btn" routerLink="home"><i class="bi bi-arrow-left fs-3"></i></button>
+        </div>
+        <div class="icon-container me-auto">
+            <i class="bi bi-terminal icon fs-2 align-middle"></i><p class="fs-6 user-select-none">Argentina programa</p>
+        </div>
+    </nav>
+</ng-template>

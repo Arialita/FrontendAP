@@ -15,6 +15,8 @@ import { HabilidadComponent } from './components/sections/habilidad/habilidad.co
 import { HeaderComponent } from './components/header/header.component';
 import { TabsComponent } from './components/home/tabs/tabs.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoginComponent } from './components/login/login.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { FooterComponent } from './components/footer/footer.component';
     HabilidadComponent,
     TabsComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    PortfolioComponent
   ],
   imports: [
     BrowserModule,

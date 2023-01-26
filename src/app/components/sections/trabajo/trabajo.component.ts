@@ -1,12 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Trabajo } from 'src/app/interface/trabajo.interface';
+import { TrabajoService } from 'src/app/services/trabajo.service';
 
 @Component({
   selector: 'app-trabajo',
   templateUrl: './trabajo.component.html',
   styleUrls: ['./trabajo.component.css']
 })
-export class TrabajoComponent {
+export class TrabajoComponent implements OnInit{
 
-  test:any[] = ['Uno: Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil delectus asperiores quos temporibus praesentium fugit voluptate? Quis, consequuntur blanditiis animi quam expedita cum alias praesentium, facere, officiis sint cumque delectus.']
+  trabajo:Trabajo[] = [];
 
+  constructor(private trabServ: TrabajoService){}
+
+  ngOnInit(): void {
+    /*this.verTrabajo();*/
+    this.scrollToElement();
+  }
+
+  scrollToElement(): void {
+    const target = document.getElementById("trabajo")!;
+    target.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+  }
+  verTrabajo():void {
+    this.trabServ.verTrabajo(1).subscribe({
+      next:data =>{this.trabajo = data},
+      error: err =>{console.log(err)}
+    })
+  }
 }

@@ -1,0 +1,30 @@
+<app-header [login]="true"></app-header>
+<div class="container form bg-light">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="container mt-5">
+            <div class="row title">
+                <div class="col">
+                    <h2>Iniciar sesión</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row row-cols-1 rounded rounded-top-0">
+                <div class="col mb-3">
+                    <label class="form-label" for="email">Correo electrónico:</label>
+                    <input class="input" [ngClass]="emailClass()" type="email" id="email" formControlName="email" placeholder="email@ejemplo.com" required>
+                <div *ngIf="email.invalid && email.dirty && email.touched" class="error-msg">
+                    <p>El correo electrónico no es correcto</p>
+                </div>
+            </div>
+            <div class="col mb-4">
+                <label class="form-label" for="password">Contraseña:</label>
+                <input class="input" [ngClass]="passwordClass()" type="password" id="password" formControlName="password" placeholder="Escribe la contraseña" required>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary w-100" type="submit" [disabled]="!loginForm.valid"> Iniciar sesión</button>
+            </div>
+        </div>
+        </div>
+    </form>
+</div>
+   
