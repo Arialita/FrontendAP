@@ -1,5 +1,6 @@
 export interface Habilidad {
-    id?: number;
+    id_hab?: number;
     nombre_habilidad:string;
     nivel:number;
+    nivel_nombre:string;
 }

@@ -4,19 +4,19 @@
             <h2>Habilidades</h2>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngFor="let item of habilidad">
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">
-                        Habilidad 1
-                    </h5>
-                    <h6 class="card-subtitle d-inline-block">
-                        Nivel de conocimiento: 
-                    </h6> 
-                    <p class="card-text d-inline-block ps-1">Beginner</p>
-                    <div class="progress" role="progressbar" aria-label="Example 20px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 20px">
-                        <div class="progress-bar" style="width: 25%">25%</div>
+                    <h5 class="card-title">{{item.nombre_habilidad}}</h5>
+                    <button class="btn edit" *ngIf="isLoggedIn" [routerLink]="['/editar/habilidad']">
+                        <i class="bi bi-pen"></i>
+                    </button>
+                    <h6 class="card-subtitle">Nivel de conocimiento: </h6>
+                    <p class="card-text">{{item.nombre_habilidad}}</p>
+                    <div class="progress" role="progressbar" aria-label="Example 20px high" aria-valuenow="25"
+                        aria-valuemin="0" aria-valuemax="100" style="height: 20px">
+                        <div class="progress-bar" [style.width.%]="item.nivel"></div>
                     </div>
                 </div>
             </div>

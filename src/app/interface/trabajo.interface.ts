@@ -1,8 +1,8 @@
 export interface Trabajo {
-    id?:number;
+    id_trab?:number;
     puesto:string;
     compania:string;
-    fecha_ini:Date;
-    fecha_fin:Date;
+    fecha_ini:string;
+    fecha_fin:string;
     descripcion:string;
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -17,6 +17,12 @@ import { TabsComponent } from './components/home/tabs/tabs.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
+import { EditarProyectoComponent } from './components/editar/editar-proyecto/editar-proyecto.component';
+import { EditarHabilidadComponent } from './components/editar/editar-habilidad/editar-habilidad.component';
+import { InterceptorService } from './services/interceptor.service';
+import { EditarTrabajoComponent } from './components/editar/editar-trabajo/editar-trabajo.component';
+import { DatePipe } from '@angular/common';
+import { EditarEducacionComponent } from './components/editar/editar-educacion/editar-educacion.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +36,11 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    PortfolioComponent
+    PortfolioComponent,
+    EditarProyectoComponent,
+    EditarHabilidadComponent,
+    EditarTrabajoComponent,
+    EditarEducacionComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +49,9 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true
+  }, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,7 +10,7 @@
     <button class="btn btn-outline-light text-dark " type="button"><i class="bi bi-github fs-4"></i></button>
     <button class="btn btn-outline-light text-dark " type="button"><i class="bi bi-linkedin fs-4"></i></button>
     <div class="vr text-dark mx-1"></div>
-    <button class=" btn btn-outline-light text-dark" type="button" [routerLink]="['/login']">Log in</button>
+    <button class=" btn btn-outline-light text-dark" type="button" *ngIf="!isLoggedIn;else logout" [routerLink]="['/login']">Log in</button>
 </nav>
 
 <!--Para móviles-->
@@ -31,7 +31,7 @@
                     <li><button class=" btn btn-light dropdown-item" routerLink="habilidades" type="button">Habilidades</button></li>
                     <li><button class=" btn btn-light dropdown-item"  type="button">Contacto</button></li>
                     <li><hr class="dropdown-divider bg-light "></li>
-                    <li><button class=" btn btn-light dropdown-item" type="button" [routerLink]="['/login']" >Log in</button></li>
+                    <li><button class=" btn btn-light dropdown-item" *ngIf="!isLoggedIn;else logoutm" type="button" [routerLink]="['/login']" >Log in</button></li>
                 </ul>
             </li>
         </ul>
@@ -47,3 +47,5 @@
         </div>
     </nav>
 </ng-template>
+<ng-template #logoutm><button class=" btn btn-light dropdown-item" type="button"  (click)="logOut()" >Cerrar sesión</button></ng-template>
+<ng-template #logout><button class=" btn btn-outline-light text-dark" type="button" (click)="logOut()">Cerrar sesión</button></ng-template>

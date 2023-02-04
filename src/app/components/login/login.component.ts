@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -8,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
-
   loginForm!:FormGroup;
+  isLoggedIn:boolean =false;
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder, private auth: AuthService, private router: Router
     ){}
 
   ngOnInit(): void {
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit{
     email : ['', [Validators.required, Validators.email]],
     password : ['',Validators.required],
    })
-   console.log('opened');
+   this.auth.isLoggedIn$.subscribe({next:data =>{this.isLoggedIn = data; if(this.isLoggedIn){this.router.navigate([''])}}})
   }
 
   get email() {
@@ -44,9 +46,12 @@ export class LoginComponent implements OnInit{
     }
   }
 
-  onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.loginForm.value);
+  onSubmit(event:Event){
+    event.preventDefault;
+    this.auth.iniciarSesion(this.loginForm.value).subscribe(
+      {next: () => this.router.navigate(['/home'])
+      }
+    )
   }
 
 }

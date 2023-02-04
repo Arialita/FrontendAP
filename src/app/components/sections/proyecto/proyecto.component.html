@@ -9,6 +9,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Este portfolio</h5>
+                    <button class="btn edit" [routerLink]="['/editar/proyecto']" *ngIf="isLoggedIn" >
+                        <i class="bi bi-pen"></i>
+                    </button>                    
                     <h6 class="card-subtitle">Lenguajes y/o frameworks utilizados:</h6>
                     <p class="card-text">Angular, SpringBoot, MySql, Bootstrap.</p>
                     <h6 class="card-subtite">URL: <a href="" class="card-link"></a></h6>

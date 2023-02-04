@@ -4,14 +4,17 @@
             <h2 >Experiencia laboral</h2>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngFor="let item of trabajo">
         <div class="col-12">
             <div class="card mb-3" >
                 <div class="card-body">
-                  <h5 class="card-title">Puesto n</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Compañía/Freelance</h6>
-                  <h6 class="card-subtitle mb-2 text-muted">Fecha de inicio y fecha de fin</h6>
-                  <p class="card-text">descripción del trabajo: Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi placeat eaque facere optio! Ipsam, labore ea alias ipsum cupiditate reprehenderit tempore nulla. Saepe, rerum laborum adipisci quibusdam illo rem quaerat.</p>
+                  <h5 class="card-title">{{item.puesto}}</h5>
+                  <button class="btn edit" routerLink='/editar/trabajo/{{item.id_trab}}' >
+                    <i class="bi bi-pen"></i>
+                </button>  
+                  <h6 class="card-subtitle mb-2 text-muted">{{item.compania}}</h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Desde el {{item.fecha_ini | date: 'd \'de\' MMMM \'del\' y':'':'es'}} al {{item.fecha_fin | date:'d \'de\' MMMM \'del\' y':'':'es'}}</h6>
+                  <p class="card-text">Función desempeñada: {{item.descripcion}}.</p>
                 </div>
               </div>
         </div>

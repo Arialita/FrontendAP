@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Trabajo } from 'src/app/interface/trabajo.interface';
 import { TrabajoService } from 'src/app/services/trabajo.service';
+import myLocaleEs from '@angular/common/locales/es';
+import {registerLocaleData} from '@angular/common';
 
 @Component({
   selector: 'app-trabajo',
@@ -14,8 +16,9 @@ export class TrabajoComponent implements OnInit{
   constructor(private trabServ: TrabajoService){}
 
   ngOnInit(): void {
-    /*this.verTrabajo();*/
+    this.verTrabajo();
     this.scrollToElement();
+    registerLocaleData(myLocaleEs);
   }
 
   scrollToElement(): void {
@@ -23,9 +26,13 @@ export class TrabajoComponent implements OnInit{
     target.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
   verTrabajo():void {
-    this.trabServ.verTrabajo(1).subscribe({
+    this.trabServ.verTrabajos().subscribe({
       next:data =>{this.trabajo = data},
       error: err =>{console.log(err)}
     })
+  }
+
+  test(id:number | undefined){
+    console.log(id)
   }
 }

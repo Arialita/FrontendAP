@@ -2,6 +2,20 @@
 *{padding: 0;
 box-sizing: border-box;}
 
+@media only screen and (min-width: 500px) {
+    .form{
+        width: 400px;
+        box-sizing: content-box;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.form {
+    border-radius: 0.4rem;
+    padding-bottom: 2.5rem;
+    border: 1px #cfcfcf solid
+}
 .input {
     padding: 0.4rem 0.6rem;
     display: block;
@@ -39,4 +53,27 @@ box-sizing: border-box;}
     color: #b62525;
     font-size: small;
     font-weight: 600;
+}
+
+.valid-msg{
+    color: #259625;
+    font-size: small;
+    font-weight: 600;
+}
+
+.edit {
+    position: absolute;
+    right: 0;
+    top: 0.3em;
+}
+
+.title {
+    border-radius: 0.4rem 0.4rem 0 0;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.modal-text {
+    text-align: center;
+    padding-bottom: 0.8em;
 }

@@ -12,7 +12,15 @@ export class ProyectoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public verProyecto(id_usr:number):Observable<Proyecto[]>{
-    return this.httpClient.get<Proyecto[]>(this.proyectoURL+`ver/${id_usr}`);
+  public verProyecto():Observable<Proyecto[]>{
+    return this.httpClient.get<Proyecto[]>(this.proyectoURL+`ver`);
+  }
+
+  verProyectoDetalle(id_proy:number):Observable<Proyecto>{
+    return this.httpClient.get<Proyecto>(this.proyectoURL + `ver/${id_proy}`);
+  }
+
+  editarProyecto(proyecto:Proyecto, id_proy:number):Observable<any>{
+    return this.httpClient.put(this.proyectoURL + `editar/1/${id_proy}`, proyecto);
   }
 }

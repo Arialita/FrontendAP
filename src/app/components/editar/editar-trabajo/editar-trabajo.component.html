@@ -1,0 +1,140 @@
+<app-header></app-header>
+<div class="container form mt-5">
+    <form (ngSubmit)="onSubmit()" [formGroup]="trabForm">
+        <div class="container">
+            <div class="row">
+                <div class="col title">
+                    <h2>Editar trabajo</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row row-cols-1">
+                <div class="col pb-3">
+                    <label for="puesto">Puesto:</label>
+                    <input type="text" id="puesto" class="input" [ngClass]="puestoClass()" required
+                        value="{{trabajo.puesto}}" formControlName="puesto">
+                    <div *ngIf="!puesto.invalid && puesto.dirty && puesto.touched" class="valid-msg">
+                        Todo parece estar correcto
+                    </div>
+                    <div *ngIf="puesto.invalid && puesto.dirty && puesto.touched" class="error-msg">
+                        Este campo es obligatorio
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="compania">Compañía:</label>
+                    <input type="text" id="compania" class="input" [ngClass]="companiaClass()"
+                        value="{{trabajo.compania}}" required formControlName="compania">
+                    <div *ngIf="!compania.invalid && compania.dirty && compania.touched" class="valid-msg">
+                        Todo parece estar correcto
+                    </div>
+                    <div *ngIf="compania.invalid && compania.dirty && compania.touched" class="error-msg">
+                        Este campo es obligatorio
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="descripcion">Funciones desempeñadas:</label>
+                    <input type="text" id="descripcion" class="input" [ngClass]="descripcionClass()"
+                        value="{{trabajo.descripcion}}" required formControlName="descripcion">
+                    <div *ngIf="!descripcion.invalid && descripcion.dirty && descripcion.touched" class="valid-msg">
+                        Todo parece estar correcto
+                    </div>
+                    <div *ngIf="descripcion.invalid && descripcion.dirty && descripcion.touched" class="error-msg">
+                        Este campo es obligatorio
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="row row-cols-2">
+                        <div class="col">
+                            <label for="fecha_ini">Fecha de inicio</label>
+                            <input type="date" class="input" [ngClass]="fecha_iniClass()" id="fecha_ini"
+                                onkeydown="return false" value="{{trabajo.fecha_ini | date:'yyyy-MM-dd'}}"
+                                formControlName="fecha_ini" required>
+                            <div *ngIf="!fecha_ini.invalid && fecha_ini.dirty && fecha_ini.touched" class="valid-msg">
+                                Todo parece estar correcto
+                            </div>
+                            <div *ngIf="fecha_ini.invalid && fecha_ini.dirty && fecha_ini.touched" class="error-msg">
+                                Este campo es obligatorio
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="fecha_fin">Fecha de fin</label>
+                            <input type="date" class="input" [ngClass]="fecha_finClass()" id="fecha_fin"
+                                min="{{fecha_ini.value}}" value="{{trabajo.fecha_fin | date:'yyyy-MM-dd'}}"
+                                onkeydown="return false" formControlName="fecha_fin" required>
+                            <div *ngIf="!fecha_fin.invalid && fecha_fin.dirty && fecha_fin.touched" class="valid-msg">
+                                Todo parece estar correcto
+                            </div>
+                            <div *ngIf="fecha_fin.invalid && fecha_fin.dirty && fecha_fin.touched" class="error-msg">
+                                Este campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row row-cols-2">
+                        <div class="col">
+                            <button class="btn btn-secondary" data-bs-target="#cancelarCambios" data-bs-toggle="modal"
+                                type="button">Cancelar</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" data-bs-target="#confirmarCambios" data-bs-toggle="modal"
+                                type="button" [disabled]="trabForm.invalid">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="confirmarCambios" aria-hidden="true" aria-labelledby="confirmarCambios"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 class="modal-title modal-text" id="confirmarCambios-msg">¿Guardar cambios?</h5>
+                        <p class="modal-text">Siempre puedes volver a editarlos.</p>
+                        <button class="btn btn-primary mb-1" type="submit" data-bs-target="#cambiosGuardados"
+                            data-bs-toggle="modal">Confirmar cambios</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            aria-label="Close">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="cambiosGuardados" aria-hidden="true" data-bs-backdrop="static"
+    aria-labelledby="cambiosGuardados" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title modal-text" id="cambiosGuardados">Cambios guardados</h5>
+                <button class="btn btn-primary" data-bs-dismiss="modal" routerLink="/home/trabajo">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cancelarCambios" aria-hidden="true" aria-labelledby="cancelarCambios" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title modal-text">
+                    ¿Cancelar cambios?
+                </h5>
+                <p class="modal-text">Todo volverá a su estado anterior.</p>
+                <button class="btn btn-danger mb-1" data-bs-target="#cambiosCancelados" data-bs-toggle="modal">Cancelar
+                    cambios</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal">Seguir editando</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cambiosCancelados" aria-hidden="true" data-bs-backdrop="static"
+    aria-labelledby="cambiosCancelados" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title modal-text" id="cambiosCancelados-msg">Cambios cancelados</h5>
+                <button class="btn btn-primary" data-bs-dismiss="modal" (click)="onCancel()">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

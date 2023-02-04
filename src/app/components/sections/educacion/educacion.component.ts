@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Educacion } from 'src/app/interface/educacion.interface';
+import { AuthService } from 'src/app/services/auth.service';
 import { EducacionService } from 'src/app/services/educacion.service';
 
 @Component({
@@ -8,14 +9,15 @@ import { EducacionService } from 'src/app/services/educacion.service';
   styleUrls: ['./educacion.component.css']
 })
 export class EducacionComponent implements OnInit{
-
+  isLoggedIn:boolean = false;
   educacion:Educacion[]=[]
 
-  constructor(private eduServ: EducacionService){}
+  constructor(private eduServ: EducacionService, private auth:AuthService){}
 
   ngOnInit(): void {
-    this.verEducacion();
+    //this.verEducacion();
     this.scrollToElement();
+    this.auth.isLogged.subscribe({next:data=>this.isLoggedIn=data})
   }
 
   scrollToElement(): void {
@@ -24,7 +26,7 @@ export class EducacionComponent implements OnInit{
   }
 
   verEducacion():void{
-    this.eduServ.verEducacion(1).subscribe({
+    this.eduServ.verEducacion().subscribe({
       next: data => {this.educacion = data},
       error: err =>{console.log(err)}
     })

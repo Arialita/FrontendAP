@@ -1,0 +1,11 @@
+button {
+    width: 100%;
+}
+
+.radio{
+    margin-right: 0.5em;
+}
+
+.radio-label {
+    padding-right: 0.5em;
+}

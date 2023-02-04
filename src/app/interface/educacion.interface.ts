@@ -1,7 +1,7 @@
 export interface Educacion{
-    id?:number;
+    id_edu?:number;
     titulo:string;
     instituto:string;
-    fecha_ini:Date;
-    fecha_fin:Date;
+    fecha_ini:string;
+    fecha_fin:string;
 }

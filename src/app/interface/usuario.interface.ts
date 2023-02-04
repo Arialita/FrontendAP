@@ -5,5 +5,5 @@ export interface Usuario {
     ocupacion:string;
     localidad:string;
     provincia:string;
-    acerca_de:string;
+    acercaDe:string;
 }

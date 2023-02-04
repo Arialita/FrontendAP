@@ -1,0 +1,114 @@
+<app-header></app-header>
+<div class="container form mt-5">
+    <form (ngSubmit)="onSubmit()" [formGroup]="proyForm">
+        <div class="container">
+            <div class="row">
+                <div class="col title">
+                    <h2>Editar proyecto</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row row-cols-1">
+                <div class="col pb-3">
+                    <label for="nombre_proyecto">Proyecto:</label>
+                    <input type="text" id="nombre_proyecto" class="input" [ngClass]="nombre_proyectoClass()" required
+                        value="{{proyecto.nombre_proyecto}}" formControlName="nombre_proyecto">
+                    <div *ngIf="!nombre_proyecto.invalid && nombre_proyecto.dirty && nombre_proyecto.touched"
+                        class="valid-msg">
+                        Todo parece estar correcto
+                    </div>
+                    <div *ngIf="nombre_proyecto.invalid && nombre_proyecto.dirty && nombre_proyecto.touched"
+                        class="error-msg">
+                        Este campo es obligatorio
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="lenguaje">Lenguajes y/o frameworks utilizados:</label>
+                    <input type="url" id="url" class="input" [ngClass]="lenguajeClass()" value="{{proyecto.lenguaje}}"
+                        required formControlName="url">
+                    <div *ngIf="!lenguaje.invalid && lenguaje.dirty && lenguaje.touched" class="valid-msg">
+                        Todo parece estar correcto
+                    </div>
+                    <div *ngIf="lenguaje.invalid && lenguaje.dirty && lenguaje.touched" class="error-msg">
+                        Este campo es obligatorio
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="url">URL:</label>
+                    <input type="text" id="url" class="input" [ngClass]="urlClass()" value="{{proyecto.url}}"
+                        required formControlName="url">
+                    <div *ngIf="!url.invalid && url.dirty && url.touched" class="valid-msg">
+                        Todo parece estar correcto
+                    </div>
+                    <div *ngIf="url.invalid && url.dirty && url.touched" class="error-msg">
+                        Este campo es obligatorio
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row row-cols-2">
+                        <div class="col">
+                            <button class="btn btn-secondary" data-bs-target="#cancelarCambios" data-bs-toggle="modal"
+                                type="button">Cancelar</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" data-bs-target="#confirmarCambios" data-bs-toggle="modal"
+                                type="button" [disabled]="proyForm.invalid">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="confirmarCambios" aria-hidden="true" aria-labelledby="confirmarCambios"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 class="modal-title modal-text" id="confirmarCambios-msg">¿Guardar cambios?</h5>
+                        <p class="modal-text">Siempre puedes volver a editarlos.</p>
+                        <button class="btn btn-primary mb-1" type="submit" data-bs-target="#cambiosGuardados"
+                            data-bs-toggle="modal">Confirmar cambios</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            aria-label="Close">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="cambiosGuardados" aria-hidden="true" data-bs-backdrop="static"
+    aria-labelledby="cambiosGuardados" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title modal-text" id="cambiosGuardados">Cambios guardados</h5>
+                <button class="btn btn-primary" data-bs-dismiss="modal" routerLink="/home/proyecto">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cancelarCambios" aria-hidden="true" aria-labelledby="cancelarCambios" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title modal-text">
+                    ¿Cancelar cambios?
+                </h5>
+                <p class="modal-text">Todo volverá a su estado anterior.</p>
+                <button class="btn btn-danger mb-1" data-bs-target="#cambiosCancelados" data-bs-toggle="modal">Cancelar
+                    cambios</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal">Seguir editando</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cambiosCancelados" aria-hidden="true" data-bs-backdrop="static"
+    aria-labelledby="cambiosCancelados" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title modal-text" id="cambiosCancelados-msg">Cambios cancelados</h5>
+                <button class="btn btn-primary" data-bs-dismiss="modal" (click)="onCancel()">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

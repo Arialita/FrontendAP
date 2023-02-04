@@ -9,12 +9,12 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class HomeComponent implements OnInit {
 
-  usuario:Usuario = {id:undefined, nombre:'', apellido:'', ocupacion:'', localidad:'', provincia:'', acerca_de:''};
+  usuario:Usuario = {id:undefined, nombre:'', apellido:'', ocupacion:'', localidad:'', provincia:'', acercaDe:''};
   constructor(private usrServ: UsuarioService){
   }
 
   ngOnInit(): void {
-    /*this.verUsuario();*/
+    this.verUsuario();
   }
 
   verUsuario():void{
