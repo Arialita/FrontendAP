@@ -1,23 +1,66 @@
 <section class="container pt-3" id="educacion">
     <div class="row mb-1">
-        <div class="col-md-5 col-sm-6">
+        <div class="col-10 col-sm-7">
             <h2>Historia académica</h2>
         </div>
+        <div class="col-2 col-sm-5 button-title">
+            <button class="btn btn-light" [routerLink]="['/nuevo/educacion']" *ngIf="isLoggedIn">
+                <div class="d-none d-sm-inline">Agregar educación </div>
+                <i class="bi bi-plus-square"></i>
+            </button>
+        </div>
     </div>
-    <div class="row">
+    <div class="row" *ngFor="let item of educacion">
         <div class="col-12">
-            <div class="card mb-3" >
+            <div class="card mb-3">
                 <div class="card-body">
-                  <h5 class="card-title">Título n</h5>
-                  <button class="btn edit" *ngIf="isLoggedIn" [routerLink]="['/editar/educacion']" >
-                    <i class="bi bi-pen"></i>
-                </button>  
-                  <h6 class="card-subtitle mb-2 text-muted">Instituto</h6>
-                  <h6 class="card-subtitle mb-2 text-muted">Fecha de inicio y fecha de fin</h6>
-                  <p class="card-text">descripción del trabajo: Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi placeat eaque facere optio! Ipsam, labore ea alias ipsum cupiditate reprehenderit tempore nulla. Saepe, rerum laborum adipisci quibusdam illo rem quaerat.</p>
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-lg-8 col-md-7">
+                            <h5 class="card-title">{{item.titulo}}</h5>
+                        </div>
+                        <div class="col-6 col-lg-4 col-sm-6 col-md-5 edit-delete-btns">
+                            <button class="btn btn-light" *ngIf="isLoggedIn" data-bs-target="#eliminar"
+                                data-bs-toggle="modal" type="button" (click)="onChoose(item.id_edu!)">
+                                <div class="d-none d-sm-inline">Eliminar </div><i class="bi bi-trash3"></i>
+                            </button>
+                            <button class="btn btn-light" *ngIf="isLoggedIn"
+                                routerLink="/editar/educacion/{{item.id_edu}}">
+                                <div class="d-none d-sm-inline">Editar </div><i class="bi bi-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">{{item.instituto}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Desde el {{item.fecha_ini | date: 'd \'de\' MMMM \'del\'
+                        y':'':'es'}} al {{item.fecha_fin | date:'d \'de\' MMMM \'del\' y':'':'es'}}</h6>
                 </div>
-              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="eliminar" aria-hidden="true" aria-labelledby="eliminarLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <i class="bi bi-exclamation-circle warn-sign"></i>
+                        <h5 class="modal-title modal-text" id="eliminarLabel">¿Seguro que desea eliminarlo?</h5>
+                        <p class="modal-text">No podra recuperar la información.</p>
+                        <button class="btn btn-danger modal-btn" data-bs-target="#eliminado" data-bs-toggle="modal"
+                            type="button
+                        " (click)="onDelete()">Eliminar de todos modos</button>
+                        <button class="btn btn-secondary modal-btn" data-bs-dismiss="modal">Volver</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-<div></div>
+<div class="modal fade" id="eliminado" aria-hidden="true" aria-labelledby="eliminadoLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <i class="bi bi-check-circle check-sign"></i>
+                <h5 class="modal-title modal-text" id="eliminadoLabel">Eliminado</h5>
+                <p class="modal-text">Se eliminó correctamente.</p>
+                <button class="btn btn-primary modal-btn" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,9 @@ import { EducacionService } from 'src/app/services/educacion.service';
   styleUrls: ['./editar-educacion.component.css']
 })
 export class EditarEducacionComponent {
-  educacion: Educacion = {titulo:'',instituto:'', fecha_ini:'', fecha_fin:''};
+  title: string = 'Agregar historia académica';
+
+  educacion: Educacion = { titulo: '', instituto: '', fecha_ini: '', fecha_fin: '' };
 
   eduForm!: FormGroup;
 
@@ -25,17 +27,26 @@ export class EditarEducacionComponent {
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id'];
-    this.eduServ.verEducacionDetalle(id).subscribe({
-      next: data => this.educacion = data,
-      error: err => console.log(err)
-    })
-    
     this.eduForm = this.fb.group({
-      titulo: ['', Validators.required],
-      instituto: ['', Validators.required],
+      titulo: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      instituto: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       fecha_ini: ['', Validators.required],
       fecha_fin: ['', Validators.required]
     })
+    if (id != undefined) {
+      let controlFecha_ini;
+      let controlFecha_fin;
+      this.eduServ.verEducacionDetalle(id).subscribe({
+        next: data => {
+          this.educacion = data;
+          controlFecha_fin = this.datePipe.transform(this.educacion.fecha_fin, "yyyy-MM-dd");
+          controlFecha_ini = this.datePipe.transform(this.educacion.fecha_ini, "yyyy-MM-dd");
+          this.eduForm.patchValue({ titulo: this.educacion.titulo, instituto: this.educacion.instituto, fecha_ini: controlFecha_ini, fecha_fin: controlFecha_fin });
+        },
+        error: err => console.log(err)
+      })
+      this.title = 'Editar historia académica';
+    }
   }
 
   get titulo() {
@@ -56,7 +67,7 @@ export class EditarEducacionComponent {
 
   tituloClass() {
     return {
-      'valid-input': !this.titulo.invalid,
+      'valid-input': !this.titulo.invalid ,
       'invalid-input': (this.titulo.invalid && this.titulo.dirty)
     }
   }
@@ -83,16 +94,30 @@ export class EditarEducacionComponent {
   }
 
   onSubmit() {
+    let temp: Educacion = this.eduForm.value;
+    let newfecha_ini = this.datePipe.transform(this.fecha_ini.value, "yyyy-MM-dd HH:mm:ss", "utc");
+    let newfecha_fin = this.datePipe.transform(this.fecha_fin.value, "yyyy-MM-dd HH:mm:ss", "utc");
+    temp.fecha_ini = newfecha_ini!;
+    temp.fecha_fin = newfecha_fin!;
     if (this.educacion.id_edu != undefined) {
-      let temp:Educacion = this.eduForm.value;
-      let newfecha_ini = this.datePipe.transform(this.fecha_ini.value, "yyyy-MM-dd HH:mm:ss","utc");
-      let newfecha_fin = this.datePipe.transform(this.fecha_fin.value, "yyyy-MM-dd HH:mm:ss","utc");
-      temp.fecha_ini = newfecha_ini!;
-      temp.fecha_fin = newfecha_fin!;
       this.eduServ.editarEducacion(temp, this.educacion.id_edu).subscribe(
         {
           next: () => {
-            this.eduForm.reset(this.eduForm.value);
+            this.eduForm.reset();
+          },
+          error: err => {
+            console.log('Fail ' + JSON.stringify(err.error));
+            console.log(JSON.stringify(this.educacion));
+            console.log(this.eduForm.value)
+            this.router.navigate(['/']);
+          }
+        }
+      );
+    } else {
+      this.eduServ.crearEducacion(temp).subscribe(
+        {
+          next: () => {
+            this.eduForm.reset();
           },
           error: err => {
             console.log('Fail ' + JSON.stringify(err.error));
@@ -105,8 +130,8 @@ export class EditarEducacionComponent {
     }
   }
 
-  onCancel(){
-    this.eduForm.reset(this.eduForm.value);
+  onCancel() {
+    this.eduForm.reset();
     this.router.navigate(['/home/educacion']);
   }
 }

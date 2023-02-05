@@ -1,0 +1,8 @@
+.test {
+    position: relative;
+}
+
+.test button {
+    position: absolute;
+    right: 0;
+}

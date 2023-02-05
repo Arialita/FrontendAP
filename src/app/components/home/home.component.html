@@ -5,7 +5,11 @@
             <div class="card border-0">
                 <div class="img card-img-top"></div>
                 <div class="card-body">
-                    <h1 class="card-title text-center">{{usuario.nombre}} {{usuario.apellido}}</h1>
+                    <h1 class="card-title text-center">{{usuario.nombre}} {{usuario.apellido}}
+                        <button *ngIf="isLoggedIn" class="btn btn-light test" type="button" routerLink="/editar/usuario">
+                            Editar usuario <i class="bi bi-pen"></i>
+                        </button>
+                    </h1>
                     <h3 class="card-subtitle text-muted">{{usuario.ocupacion}}</h3>
                     <h4 class="card-subtitle text-muted">{{usuario.localidad}}, {{usuario.provincia}}</h4>
                     <p class="card-text text-start">{{usuario.acercaDe}}</p>

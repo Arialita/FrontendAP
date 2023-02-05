@@ -1,28 +1,28 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { TrabajoComponent } from './components/sections/trabajo/trabajo.component';
-import { EducacionComponent } from './components/sections/educacion/educacion.component';
-import { ProyectoComponent } from './components/sections/proyecto/proyecto.component';
-import { HabilidadComponent } from './components/sections/habilidad/habilidad.component';
-import { HeaderComponent } from './components/header/header.component';
-import { TabsComponent } from './components/home/tabs/tabs.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { LoginComponent } from './components/login/login.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
-import { EditarProyectoComponent } from './components/editar/editar-proyecto/editar-proyecto.component';
-import { EditarHabilidadComponent } from './components/editar/editar-habilidad/editar-habilidad.component';
-import { InterceptorService } from './services/interceptor.service';
-import { EditarTrabajoComponent } from './components/editar/editar-trabajo/editar-trabajo.component';
 import { DatePipe } from '@angular/common';
+import { AppComponent } from './app.component';
 import { EditarEducacionComponent } from './components/editar/editar-educacion/editar-educacion.component';
+import { EditarHabilidadComponent } from './components/editar/editar-habilidad/editar-habilidad.component';
+import { EditarProyectoComponent } from './components/editar/editar-proyecto/editar-proyecto.component';
+import { EditarTrabajoComponent } from './components/editar/editar-trabajo/editar-trabajo.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { HomeComponent } from './components/home/home.component';
+import { TabsComponent } from './components/home/tabs/tabs.component';
+import { LoginComponent } from './components/login/login.component';
+import { EducacionComponent } from './components/sections/educacion/educacion.component';
+import { HabilidadComponent } from './components/sections/habilidad/habilidad.component';
+import { ProyectoComponent } from './components/sections/proyecto/proyecto.component';
+import { TrabajoComponent } from './components/sections/trabajo/trabajo.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { InterceptorService } from './services/interceptor.service';
+import { EditarPersonaComponent } from './components/editar/editar-persona/editar-persona.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +41,7 @@ import { EditarEducacionComponent } from './components/editar/editar-educacion/e
     EditarHabilidadComponent,
     EditarTrabajoComponent,
     EditarEducacionComponent,
+    EditarPersonaComponent,
   ],
   imports: [
     BrowserModule,

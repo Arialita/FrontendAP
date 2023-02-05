@@ -11,6 +11,8 @@ import { TrabajoService } from 'src/app/services/trabajo.service';
   styleUrls: ['./editar-trabajo.component.css']
 })
 export class EditarTrabajoComponent implements OnInit {
+
+  title: string = 'Agregar nuevo trabajo';
   trabajo: Trabajo = { puesto: '', compania: '', descripcion: '', fecha_ini: '', fecha_fin: '' };
 
   trabForm!: FormGroup;
@@ -25,18 +27,27 @@ export class EditarTrabajoComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id'];
-    this.trabServ.verTrabajo(id).subscribe({
-      next: data => this.trabajo = data,
-      error: err => console.log(err)
-    })
-
     this.trabForm = this.fb.group({
-      puesto: ['', Validators.required],
-      compania: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      puesto: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      compania: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      descripcion: ['', [Validators.required, Validators.maxLength(255)]],
       fecha_ini: ['', Validators.required],
       fecha_fin: ['', Validators.required]
     })
+    let controlFecha_ini;
+    let controlFecha_fin;
+    if (id != undefined) {
+      this.trabServ.verTrabajo(id).subscribe({
+        next: data => {
+          this.trabajo = data
+          controlFecha_fin = this.datePipe.transform(this.trabajo.fecha_fin, "yyyy-MM-dd");
+          controlFecha_ini = this.datePipe.transform(this.trabajo.fecha_ini, "yyyy-MM-dd");
+          this.trabForm.patchValue({ puesto: this.trabajo.puesto, compania: this.trabajo.compania, descripcion: this.trabajo.descripcion, fecha_ini: controlFecha_ini, fecha_fin: controlFecha_fin });
+        },
+        error: err => console.log(err)
+      })
+      this.title = 'Editar trabajo';
+    }
   }
 
   get puesto() {
@@ -94,16 +105,16 @@ export class EditarTrabajoComponent implements OnInit {
     }
   }
   onSubmit() {
+    let temp: Trabajo = this.trabForm.value;
+    let newfecha_ini = this.datePipe.transform(this.fecha_ini.value, "yyyy-MM-dd HH:mm:ss", "utc");
+    let newfecha_fin = this.datePipe.transform(this.fecha_fin.value, "yyyy-MM-dd HH:mm:ss", "utc");
+    temp.fecha_ini = newfecha_ini!;
+    temp.fecha_fin = newfecha_fin!;
     if (this.trabajo.id_trab != undefined) {
-      let temp: Trabajo = this.trabForm.value;
-      let newfecha_ini = this.datePipe.transform(this.fecha_ini.value, "yyyy-MM-dd HH:mm:ss", "utc");
-      let newfecha_fin = this.datePipe.transform(this.fecha_fin.value, "yyyy-MM-dd HH:mm:ss", "utc");
-      temp.fecha_ini = newfecha_ini!;
-      temp.fecha_fin = newfecha_fin!;
       this.trabServ.editarTrabajo(temp, this.trabajo.id_trab).subscribe(
         {
           next: () => {
-            this.trabForm.reset(this.trabForm.value);
+            this.trabForm.reset();
           },
           error: err => {
             console.log('Fail ' + JSON.stringify(err.error));
@@ -113,6 +124,18 @@ export class EditarTrabajoComponent implements OnInit {
           }
         }
       );
+    } else {
+      this.trabServ.crearTrabajo(temp).subscribe({
+        next: () => {
+          this.trabForm.reset();
+        },
+        error: err => {
+          console.log('Fail ' + JSON.stringify(err.error));
+          console.log(JSON.stringify(this.trabajo));
+          console.log(this.trabForm.value)
+          this.router.navigate(['/']);
+        }
+      })
     }
   }
 

@@ -28,6 +28,14 @@ export class TrabajoService {
   }
 
   public editarTrabajo(trabajo:Trabajo, id_trab:number):Observable<any>{
-    return this.httpClient.put(this.trabajoURL + `editar/1/${id_trab}`, trabajo );
+    return this.httpClient.put(this.trabajoURL + `editar/1/${id_trab}`, trabajo, this.httpOptions );
+  }
+
+  public crearTrabajo(trabajo:Trabajo):Observable<any>{
+    return this.httpClient.post(this.trabajoURL + `crear/1`, trabajo, this.httpOptions)
+  }
+
+  public borrarTrabajo(id:number):Observable<any>{
+    return this.httpClient.delete(this.trabajoURL + `borrar/${id}`, this.httpOptions )
   }
 }

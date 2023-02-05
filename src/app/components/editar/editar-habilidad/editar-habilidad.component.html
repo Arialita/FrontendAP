@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col title">
-                    <h2>Editar habilidad</h2>
+                    <h2>{{title}}</h2>
                     <hr>
                 </div>
             </div>
@@ -12,18 +12,22 @@
                 <div class="col pb-3">
                     <label for="nombre_habilidad">Habilidad:</label>
                     <input type="text" id="nombre_habilidad" class="input" [ngClass]="nombre_habilidadClass()" required
-                        value="{{habilidad.nombre_habilidad}}" formControlName="nombre_habilidad">
+                        value="{{habilidad.nombre_hab}}" formControlName="nombre_hab" maxlength="100">
                     <div *ngIf="!nombre_habilidad.invalid && nombre_habilidad.dirty && nombre_habilidad.touched"
                         class="valid-msg">
-                        Todo parece estar correcto
+                        Todo parece estar correcto.
                     </div>
-                    <div *ngIf="nombre_habilidad.invalid && nombre_habilidad.dirty && nombre_habilidad.touched"
+                    <div *ngIf="nombre_habilidad.errors?.['maxlength'] && nombre_habilidad.touched && nombre_habilidad.dirty"
                         class="error-msg">
-                        Este campo es obligatorio
+                        El nombre de la habilidad no debe superar los 100 carácteres.
+                    </div>
+                    <div *ngIf="nombre_habilidad.errors?.['required'] && nombre_habilidad.dirty && nombre_habilidad.touched"
+                        class="error-msg">
+                        Este campo es obligatorio.
                     </div>
                 </div>
                 <div class="col">
-                    <input type="radio" class="radio" id="idioma" name="skill" (click)="onToggle(true)" >
+                    <input type="radio" class="radio" id="idioma" name="skill" (click)="onToggle(true)">
                     <label for="idioma" class="radio-label"> Idioma</label>
                     <input type="radio" class="radio" id="otro" name="skill" checked (click)="onToggle(false)">
                     <label for="otro" class="radio-label"> Otro</label>
@@ -37,19 +41,22 @@
                         <option value="80" id="80">Intermedio-avanzado</option>
                         <option value="100" id="100">Avanzado</option>
                         <option value="110" id="110" *ngIf="idioma">Nativo</option>
-                    </select> 
+                    </select>
                     <div *ngIf="!nivel.invalid && nivel.dirty && nivel.touched" class="valid-msg">
-                        Todo parece estar correcto
+                        Todo parece estar correcto.
                     </div>
                     <div *ngIf="nivel.invalid && nivel.dirty && nivel.touched" class="error-msg">
-                        Este campo es obligatorio
+                        Este campo es obligatorio.
                     </div>
                 </div>
                 <div class="col">
                     <div class="row row-cols-2">
                         <div class="col">
-                            <button class="btn btn-secondary" data-bs-target="#cancelarCambios" data-bs-toggle="modal"
-                                type="button">Cancelar</button>
+                            <ng-container *ngIf="habForm.dirty && habForm.touched; else notEdited">
+                                <button class="btn btn-secondary" data-bs-target="#cancelarCambios"
+                                    data-bs-toggle="modal" type="button">Cancelar
+                                </button>
+                            </ng-container>
                         </div>
                         <div class="col">
                             <button class="btn btn-primary" data-bs-target="#confirmarCambios" data-bs-toggle="modal"
@@ -112,4 +119,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
+<ng-template #notEdited>
+    <button class="btn btn-secondary btn-form" (click)="onCancel()" type="button">Cancelar</button>
+</ng-template>

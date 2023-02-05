@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col title">
-                    <h2>Editar historia académica</h2>
+                    <h2>{{title}}</h2>
                     <hr>
                 </div>
             </div>
@@ -12,12 +12,15 @@
                 <div class="col pb-3">
                     <label for="titulo">Titulo:</label>
                     <input type="text" id="titulo" class="input" [ngClass]="tituloClass()" required
-                        value="{{educacion.titulo}}" formControlName="titulo">
+                        value="{{educacion.titulo}}" formControlName="titulo" minlength="2" maxlength="100">
                     <div *ngIf="!titulo.invalid && titulo.dirty && titulo.touched" class="valid-msg">
-                        Todo parece estar correcto
+                        Todo parece estar correcto.
                     </div>
-                    <div *ngIf="titulo.invalid && titulo.dirty && titulo.touched" class="error-msg">
-                        Este campo es obligatorio
+                    <div *ngIf="titulo.errors?.['required'] && titulo.dirty && titulo.touched" class="error-msg">
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="titulo.dirty && titulo.touched && (titulo.errors?.['minlength']|| titulo.errors?.['maxlength'])"
+                        class="error-msg">El título debe estar entre 2 y 100 carácteres.
                     </div>
                 </div>
                 <div class="col mb-3">
@@ -25,10 +28,14 @@
                     <input type="text" id="instituto" class="input" [ngClass]="institutoClass()"
                         value="{{educacion.instituto}}" required formControlName="instituto">
                     <div *ngIf="!instituto.invalid && instituto.dirty && instituto.touched" class="valid-msg">
-                        Todo parece estar correcto
+                        Todo parece estar correcto.
                     </div>
-                    <div *ngIf="instituto.invalid && instituto.dirty && instituto.touched" class="error-msg">
-                        Este campo es obligatorio
+                    <div *ngIf="instituto.errors?.['required'] && instituto.dirty && instituto.touched"
+                        class="error-msg">
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="instituto.dirty && instituto.touched && (instituto.errors?.['minlength']|| instituto.errors?.['maxlength'])"
+                        class="error-msg">El nombre del instituto debe estar entre 2 y 100 carácteres.
                     </div>
                 </div>
                 <div class="col mb-4">
@@ -39,10 +46,10 @@
                                 onkeydown="return false" value="{{educacion.fecha_ini | date:'yyyy-MM-dd'}}"
                                 formControlName="fecha_ini" required>
                             <div *ngIf="!fecha_ini.invalid && fecha_ini.dirty && fecha_ini.touched" class="valid-msg">
-                                Todo parece estar correcto
+                                Todo parece estar correcto.
                             </div>
                             <div *ngIf="fecha_ini.invalid && fecha_ini.dirty && fecha_ini.touched" class="error-msg">
-                                Este campo es obligatorio
+                                Este campo es obligatorio.
                             </div>
                         </div>
                         <div class="col">
@@ -51,10 +58,10 @@
                                 min="{{fecha_ini.value}}" value="{{educacion.fecha_fin | date:'yyyy-MM-dd'}}"
                                 onkeydown="return false" formControlName="fecha_fin" required>
                             <div *ngIf="!fecha_fin.invalid && fecha_fin.dirty && fecha_fin.touched" class="valid-msg">
-                                Todo parece estar correcto
+                                Todo parece estar correcto.
                             </div>
                             <div *ngIf="fecha_fin.invalid && fecha_fin.dirty && fecha_fin.touched" class="error-msg">
-                                Este campo es obligatorio
+                                Este campo es obligatorio.
                             </div>
                         </div>
                     </div>
@@ -62,8 +69,11 @@
                 <div class="col">
                     <div class="row row-cols-2">
                         <div class="col">
-                            <button class="btn btn-secondary" data-bs-target="#cancelarCambios" data-bs-toggle="modal"
-                                type="button">Cancelar</button>
+                            <ng-container *ngIf="eduForm.touched && eduForm.dirty; else notEdited">
+                                <button class="btn btn-secondary" data-bs-target="#cancelarCambios"
+                                    data-bs-toggle="modal" type="button">Cancelar
+                                </button>
+                            </ng-container>
                         </div>
                         <div class="col">
                             <button class="btn btn-primary" data-bs-target="#confirmarCambios" data-bs-toggle="modal"
@@ -127,3 +137,7 @@
         </div>
     </div>
 </div>
+
+<ng-template #notEdited>
+    <button class="btn btn-secondary btn-form" (click)="onCancel()" type="button">Cancelar</button>
+</ng-template>

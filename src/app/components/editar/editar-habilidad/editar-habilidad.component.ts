@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,9 +10,10 @@ import { HabilidadService } from 'src/app/services/habilidad.service';
   styleUrls: ['./editar-habilidad.component.css']
 })
 export class EditarHabilidadComponent {
-  habilidad: Habilidad = {nombre_habilidad:'',nivel:0, nivel_nombre:''}
-  idioma:boolean=false;
-  nivel_nombre!:string | undefined;
+  title: string = 'Agregar nueva habilidad';
+  habilidad: Habilidad = { nombre_hab: '', nivel: 0, nivel_nombre: '' }
+  idioma: boolean = false;
+  nivel_nombre!: string | undefined;
   habForm!: FormGroup;
 
   constructor(
@@ -24,20 +24,22 @@ export class EditarHabilidadComponent {
   ) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
-    this.habServ.verHabilidadDetalle(id).subscribe({
-      next: data => this.habilidad = data,
-      error: err => console.log(err)
-    })
-    
     this.habForm = this.fb.group({
-      nombre_habilidad: ['', Validators.required],
+      nombre_hab: ['', [Validators.required, Validators.maxLength(100)]],
       nivel: ['', Validators.required]
     })
+    const id = this.activatedRoute.snapshot.params['id'];
+    if (id != undefined) {
+      this.title = 'Editar habilidad';
+      this.habServ.verHabilidadDetalle(id).subscribe({
+        next: data => {this.habilidad = data; this.habForm.patchValue({nombre_hab:this.habilidad.nombre_hab})},
+        error: err => console.log(err)
+      });
+    }
   }
 
   get nombre_habilidad() {
-    return this.habForm.get('nombre_habilidad')!;
+    return this.habForm.get('nombre_hab')!;
   }
 
   get nivel() {
@@ -59,20 +61,18 @@ export class EditarHabilidadComponent {
   }
 
   onSubmit() {
+    this.nivel_nombre = document.getElementById(this.nivel.value)?.innerText
+    if (this.idioma) {
+      let n: number = parseInt(this.nivel.value) - 10;
+      this.habForm.patchValue({ 'nivel': n });
+    }
+    let temp: Habilidad = this.habForm.value;
+    temp.nivel_nombre = this.nivel_nombre!;
     if (this.habilidad.id_hab != undefined) {
-      this.nivel_nombre = document.getElementById(this.nivel.value)?.innerText
-      if(this.idioma){
-        let n:number = parseInt(this.nivel.value) - 10;
-        this.habForm.patchValue({'nivel':n});
-      }
-      this.nivel_nombre = document.getElementById("1")?.innerText
-      console.log(this.nivel_nombre);
-      let temp:Habilidad = this.habForm.value;
-      temp.nivel_nombre = this.nivel_nombre!;
       this.habServ.editarHabilidad(temp, this.habilidad.id_hab).subscribe(
         {
           next: () => {
-            this.habForm.reset(this.habForm.value);
+            this.habForm.reset();
           },
           error: err => {
             console.log('Fail ' + JSON.stringify(err.error));
@@ -82,15 +82,29 @@ export class EditarHabilidadComponent {
           }
         }
       );
+    } else {
+      this.habServ.crearHabilidad(temp).subscribe(
+        {
+          next: () => {
+            this.habForm.reset();
+          },
+          error: err => {
+            console.log('Fail ' + JSON.stringify(err.error));
+            console.log(JSON.stringify(this.habilidad));
+            console.log(this.habForm.value)
+            this.router.navigate(['/']);
+          }
+        }
+      )
     }
   }
 
-  onCancel(){
-    this.habForm.reset(this.habForm.value);
+  onCancel() {
+    this.habForm.reset();
     this.router.navigate(['/home/habilidad']);
   }
 
-  onToggle(temp:boolean){
+  onToggle(temp: boolean) {
     this.idioma = temp;
   }
 }

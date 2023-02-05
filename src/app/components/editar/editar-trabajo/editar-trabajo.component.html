@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col title">
-                    <h2>Editar trabajo</h2>
+                    <h2>{{title}}</h2>
                     <hr>
                 </div>
             </div>
@@ -12,34 +12,43 @@
                 <div class="col pb-3">
                     <label for="puesto">Puesto:</label>
                     <input type="text" id="puesto" class="input" [ngClass]="puestoClass()" required
-                        value="{{trabajo.puesto}}" formControlName="puesto">
+                        formControlName="puesto" minlength="2" maxlength="100">
                     <div *ngIf="!puesto.invalid && puesto.dirty && puesto.touched" class="valid-msg">
-                        Todo parece estar correcto
+                        Todo parece estar correcto.
                     </div>
-                    <div *ngIf="puesto.invalid && puesto.dirty && puesto.touched" class="error-msg">
-                        Este campo es obligatorio
+                    <div *ngIf="puesto.errors?.['required'] && puesto.dirty && puesto.touched" class="error-msg">
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="(puesto.errors?.['minlength'] || puesto.errors?.['maxlength'])&& puesto.dirty && puesto.touched" class="error-msg">
+                        El puesto debe estar entre 2 y 100 carácteres.
                     </div>
                 </div>
                 <div class="col mb-3">
                     <label for="compania">Compañía:</label>
-                    <input type="text" id="compania" class="input" [ngClass]="companiaClass()"
-                        value="{{trabajo.compania}}" required formControlName="compania">
+                    <input type="text" id="compania" class="input" [ngClass]="companiaClass()" required
+                        formControlName="compania" minlength="2" maxlength="100" >
                     <div *ngIf="!compania.invalid && compania.dirty && compania.touched" class="valid-msg">
-                        Todo parece estar correcto
+                        Todo parece estar correcto.
                     </div>
                     <div *ngIf="compania.invalid && compania.dirty && compania.touched" class="error-msg">
-                        Este campo es obligatorio
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="(compania.errors?.['minlength'] || compania.errors?.['maxlength'])&& compania.dirty && compania.touched" class="error-msg">
+                        La compañía debe estar entre 2 y 100 carácteres.
                     </div>
                 </div>
                 <div class="col mb-3">
                     <label for="descripcion">Funciones desempeñadas:</label>
-                    <input type="text" id="descripcion" class="input" [ngClass]="descripcionClass()"
-                        value="{{trabajo.descripcion}}" required formControlName="descripcion">
+                    <input type="text" id="descripcion" class="input" [ngClass]="descripcionClass()" required
+                        formControlName="descripcion" maxlength="255">
                     <div *ngIf="!descripcion.invalid && descripcion.dirty && descripcion.touched" class="valid-msg">
-                        Todo parece estar correcto
+                        Todo parece estar correcto.
                     </div>
                     <div *ngIf="descripcion.invalid && descripcion.dirty && descripcion.touched" class="error-msg">
-                        Este campo es obligatorio
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="descripcion.errors?.['maxlength'] && descripcion.dirty && descripcion.touched" class="error-msg">
+                        La descripción no debe superar los 255 carácteres.
                     </div>
                 </div>
                 <div class="col mb-4">
@@ -47,25 +56,23 @@
                         <div class="col">
                             <label for="fecha_ini">Fecha de inicio</label>
                             <input type="date" class="input" [ngClass]="fecha_iniClass()" id="fecha_ini"
-                                onkeydown="return false" value="{{trabajo.fecha_ini | date:'yyyy-MM-dd'}}"
-                                formControlName="fecha_ini" required>
+                                onkeydown="return false" formControlName="fecha_ini" required>
                             <div *ngIf="!fecha_ini.invalid && fecha_ini.dirty && fecha_ini.touched" class="valid-msg">
-                                Todo parece estar correcto
+                                Todo parece estar correcto.
                             </div>
                             <div *ngIf="fecha_ini.invalid && fecha_ini.dirty && fecha_ini.touched" class="error-msg">
-                                Este campo es obligatorio
+                                Este campo es obligatorio.
                             </div>
                         </div>
                         <div class="col">
                             <label for="fecha_fin">Fecha de fin</label>
                             <input type="date" class="input" [ngClass]="fecha_finClass()" id="fecha_fin"
-                                min="{{fecha_ini.value}}" value="{{trabajo.fecha_fin | date:'yyyy-MM-dd'}}"
-                                onkeydown="return false" formControlName="fecha_fin" required>
+                                min="{{fecha_ini.value}}" onkeydown="return false" formControlName="fecha_fin" required>
                             <div *ngIf="!fecha_fin.invalid && fecha_fin.dirty && fecha_fin.touched" class="valid-msg">
-                                Todo parece estar correcto
+                                Todo parece estar correcto.
                             </div>
                             <div *ngIf="fecha_fin.invalid && fecha_fin.dirty && fecha_fin.touched" class="error-msg">
-                                Este campo es obligatorio
+                                Este campo es obligatorio.
                             </div>
                         </div>
                     </div>
@@ -73,8 +80,10 @@
                 <div class="col">
                     <div class="row row-cols-2">
                         <div class="col">
-                            <button class="btn btn-secondary" data-bs-target="#cancelarCambios" data-bs-toggle="modal"
+                            <ng-container *ngIf="trabForm.touched && trabForm.dirty; else notEdited">
+                                <button class="btn btn-secondary" data-bs-target="#cancelarCambios" data-bs-toggle="modal"
                                 type="button">Cancelar</button>
+                            </ng-container>
                         </div>
                         <div class="col">
                             <button class="btn btn-primary" data-bs-target="#confirmarCambios" data-bs-toggle="modal"
@@ -138,3 +147,8 @@
         </div>
     </div>
 </div>
+
+<ng-template #notEdited>
+    <button class="btn btn-secondary btn-form" (click)="onCancel()"
+        type="button">Cancelar</button>
+</ng-template>

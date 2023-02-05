@@ -61,10 +61,9 @@ box-sizing: border-box;}
     font-weight: 600;
 }
 
-.edit {
-    position: absolute;
-    right: 0;
-    top: 0.3em;
+.edit-delete-btns{
+    display: flex;
+    justify-content: flex-end;
 }
 
 .title {
@@ -76,4 +75,46 @@ box-sizing: border-box;}
 .modal-text {
     text-align: center;
     padding-bottom: 0.8em;
+}
+
+.create-btn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size:larger;
+}
+
+.text-btn{
+    vertical-align: top;
+    display: inline;
+    font-size: smaller;
+}
+.section-title{
+    position: relative;
+}
+
+.warn-sign{
+    font-size: xx-large;
+    color: #b62525;
+    text-align: center;
+}
+.check-sign{
+    font-size: xx-large;
+    color: #208820;
+    text-align: center;
+}
+
+.modal-btn{
+    margin-bottom: 0.5em;
+    align-self: center;
+    width: 100%;
+}
+
+.button-title {
+    position: relative;
+}
+
+.button-title button {
+    position: absolute;
+    right: 0;
 }

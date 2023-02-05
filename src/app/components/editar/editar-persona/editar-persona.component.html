@@ -1,0 +1,183 @@
+<app-header></app-header>
+<div class="container form mt-5">
+    <form (ngSubmit)="onSubmit()" [formGroup]="persoForm">
+        <div class="container">
+            <div class="row">
+                <div class="col title">
+                    <h2>Editar usuario</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row row-cols-2">
+                <div class="col pb-3">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" class="input" [ngClass]="nombreClass()" required
+                        formControlName="nombre" maxlength="20" minlength="2">
+                    <div *ngIf="!nombre.invalid && nombre.dirty && nombre.touched" class="valid-msg">
+                        Todo parece estar correcto
+                    </div>
+                    <div *ngIf="nombre.errors?.['required'] && nombre.dirty && nombre.touched" class="error-msg">
+                        Este campo es obligatorio
+                    </div>
+                    <div *ngIf="nombre.dirty && nombre.touched && (nombre.errors?.['maxlength'] || nombre.errors?.['minlength'])"
+                        class="error-msg">
+                        El nombre debe estar entre 2 y 20 carácteres.
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="text" class="input" [ngClass]="apellidoClass()" required
+                        formControlName="apellido" maxlength="20" minlength="2">
+                    <div *ngIf="!apellido.invalid && apellido.dirty && apellido.touched" class="valid-msg">
+                        Todo parece estar correcto.
+                    </div>
+                    <div *ngIf="apellido.errors?.['required'] && apellido.dirty && apellido.touched" class="error-msg">
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="(apellido.errors?.['maxlength'] || apellido.errors?.['minlength']) && apellido.dirty && apellido.touched"
+                        class="error-msg">
+                        El apellido debe estar entre 2 y 20 carácteres.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="ocupacion">Ocupacion:</label>
+                    <input type="text" id="ocupacion" class="input" [ngClass]="ocupacionClass()" required
+                        formControlName="ocupacion" maxlength="20" minlength="2">
+                    <div *ngIf="!ocupacion.invalid && ocupacion.dirty && ocupacion.touched" class="valid-msg">
+                        Todo parece estar correcto.
+                    </div>
+                    <div *ngIf="ocupacion.errors?.['required'] && ocupacion.dirty && ocupacion.touched"
+                        class="error-msg">
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="(ocupacion.errors?.['maxlength'] || ocupacion.errors?.['minlength']) && ocupacion.dirty && ocupacion.touched"
+                        class="error-msg">
+                        La ocupación debe estar entre 2 y 20 carácteres.
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-2">
+                <div class="col mb-3">
+                    <label for="localidad">Localidad:</label>
+                    <input type="text" id="localidad" class="input" [ngClass]="localidadClass()" required
+                        formControlName="localidad" maxlength="50" minlength="2">
+                    <div *ngIf="!localidad.invalid && localidad.dirty && localidad.touched" class="valid-msg">
+                        Todo parece estar correcto.
+                    </div>
+                    <div *ngIf="localidad.errors?.['required'] && localidad.dirty && localidad.touched"
+                        class="error-msg">
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="(localidad.errors?.['maxlength'] || localidad.errors?.['minlength']) && localidad.dirty && localidad.touched"
+                        class="error-msg">
+                        La localidad debe estar entre 2 y 50 carácteres.
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="provincia">Provincia:</label>
+                    <input type="text" id="provincia" class="input" [ngClass]="provinciaClass()" required
+                        formControlName="provincia" maxlength="50" minlength="2">
+                    <div *ngIf="!provincia.invalid && provincia.dirty && provincia.touched" class="valid-msg">
+                        Todo parece estar correcto.
+                    </div>
+                    <div *ngIf="provincia.errors?.['required'] && provincia.dirty && provincia.touched"
+                        class="error-msg">
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="(provincia.errors?.['maxlength'] || provincia.errors?.['minlength']) && provincia.dirty && provincia.touched"
+                        class="error-msg">
+                        La provincia debe estar entre 2 y 50 carácteres.
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1">
+                <div class="col mb-3">
+                    <label for="acercaDe">Sobre mí:</label>
+                    <textarea type="text" id="acercaDe" class="input" [ngClass]="acercaDeClass()" required
+                        formControlName="acercaDe" maxlength="255" minlength="2"></textarea>
+                    <div *ngIf="!acercaDe.invalid && acercaDe.dirty && acercaDe.touched" class="valid-msg">
+                        Todo parece estar correcto.
+                    </div>
+                    <div *ngIf="acercaDe.errors?.['required'] && acercaDe.dirty && acercaDe.touched" class="error-msg">
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="(acercaDe.errors?.['maxlength'] || acercaDe.errors?.['minlength']) && acercaDe.dirty && acercaDe.touched"
+                        class="error-msg">
+                        La ocupacion debe estar entre 2 y 255 carácteres.
+                    </div>
+                </div>
+                <div class="col-6">
+                    <ng-container *ngIf="persoForm.touched && persoForm.dirty; else notEdited">
+                        <button class="btn btn-secondary btn-form" data-bs-target="#cancelarCambios"
+                            data-bs-toggle="modal" type="button">Cancelar
+                        </button>
+                    </ng-container>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary btn-form" data-bs-target="#confirmarCambios" data-bs-toggle="modal"
+                        type="button" [disabled]="persoForm.invalid">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="confirmarCambios" aria-hidden="true" aria-labelledby="confirmarCambios"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 class="modal-title modal-text" id="confirmarCambios-msg">¿Guardar cambios?</h5>
+                        <p class="modal-text">Siempre puedes volver a editarlos.</p>
+                        <button class="btn btn-primary mb-1 btn-form" type="submit" data-bs-target="#cambiosGuardados"
+                            data-bs-toggle="modal">Confirmar cambios</button>
+                        <button type="button" class="btn btn-secondary btn-form" data-bs-dismiss="modal"
+                            aria-label="Close">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="cambiosGuardados" aria-hidden="true" data-bs-backdrop="static"
+    aria-labelledby="cambiosGuardados" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title modal-text" id="cambiosGuardados">Cambios guardados</h5>
+                <button class="btn btn-primary btn-form" data-bs-dismiss="modal" routerLink="/home/persona">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cancelarCambios" aria-hidden="true" aria-labelledby="cancelarCambios" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title modal-text">
+                    ¿Cancelar cambios?
+                </h5>
+                <p class="modal-text">Todo volverá a su estado anterior.</p>
+                <button class="btn btn-danger mb-1 btn-form" data-bs-target="#cambiosCancelados"
+                    data-bs-toggle="modal">Cancelar
+                    cambios</button>
+                <button class="btn btn-primary btn-form" data-bs-dismiss="modal">Seguir editando</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cambiosCancelados" aria-hidden="true" data-bs-backdrop="static"
+    aria-labelledby="cambiosCancelados" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title modal-text" id="cambiosCancelados-msg">Cambios cancelados</h5>
+                <button class="btn btn-primary btn-form" data-bs-dismiss="modal" (click)="onCancel()">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #notEdited>
+    <button class="btn btn-secondary btn-form" (click)="onCancel()"
+        type="button">Cancelar</button>
+</ng-template>
