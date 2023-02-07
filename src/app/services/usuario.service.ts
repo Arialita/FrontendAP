@@ -18,9 +18,10 @@ export class UsuarioService {
     })
   };
 
-  usrURL: string = 'https://portfolioap-arialita.koyeb.app/usuario/';
-
-  redesURL: string = 'https://portfolioap-arialita.koyeb.app/redes/';
+  //usrURL: string = 'https://portfolioap-arialita.koyeb.app/usuario/';
+  usrURL:string = 'http://localhost:8080/usuario/';
+  //redesURL: string = 'https://portfolioap-arialita.koyeb.app/redes/';
+  redesURL:string = 'http://localhost:8080/redes/';
 
   constructor(private httpClient: HttpClient, private storage: Storage) { }
 

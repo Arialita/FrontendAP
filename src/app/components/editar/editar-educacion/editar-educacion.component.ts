@@ -120,9 +120,9 @@ export class EditarEducacionComponent {
             this.eduForm.reset();
           },
           error: err => {
-            console.log('Fail ' + JSON.stringify(err.error));
-            console.log(JSON.stringify(this.educacion));
-            console.log(this.eduForm.value)
+            console.log('Fail ' + JSON.stringify('Error al crear ' + err.error));
+            console.log('Educaión: ' +  JSON.stringify(this.educacion));
+            console.log('Lo que se completó en el formulario: ' +  this.eduForm.value)
             this.router.navigate(['/']);
           }
         }

@@ -2,15 +2,15 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-sm-8">
             <p class="fs-6">¿Tenés preguntas? Contactame:</p>
-            <i class="bi bi-envelope"> alejandro_aguilar_1996@hotmail.com</i>
+            <a routerLink="/contacto"><i class="bi bi-envelope"> alejandro_aguilar_1996@hotmail.com</i></a>
         </div>
-        <div class="col-sm-5 d-xs-flex d-sm-none">
-            <button class="btn" type="button"><i class="bi bi-instagram fs-4"></i></button>
-            <button class="btn" type="button"><i class="bi bi-github fs-4"></i></button>
-            <button class="btn" type="button"><i class="bi bi-linkedin fs-4"></i></button>
-            <button class="btn btn-light" *ngIf="isLoggedIn" [routerLink]="['/editar/redes']">
+        <div class="col-sm-5 d-xs-flex d-sm-none" *ngIf="redes">
+            <a class="btn" target="_blank" rel="author" href="{{redes.instagram}}"><i class="bi bi-instagram fs-4"></i></a>
+            <a class="btn" target="_blank" rel="author" href="{{redes.github}}"><i class="bi bi-github fs-4"></i></a>
+            <a class="btn" target="_blank" rel="author" href="{{redes.linkedIn}}"><i class="bi bi-linkedin fs-4"></i></a>
+            <a class="btn btn-light" *ngIf="isLoggedIn" [routerLink]="['/editar/redes']">
                 <i class="bi bi-pen"></i>
-            </button>   
+            </a>   
             <p class="fs-6">Mis redes sociales</p>
         </div>
     </div>

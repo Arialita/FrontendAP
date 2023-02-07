@@ -118,8 +118,8 @@ export class EditarTrabajoComponent implements OnInit {
           },
           error: err => {
             console.log('Fail ' + JSON.stringify(err.error));
-            console.log(JSON.stringify(this.trabajo));
-            console.log(this.trabForm.value)
+            console.log('Educaión: ' +  JSON.stringify(this.trabajo));
+            console.log('Lo que se completó en el formulario: ' + this.trabForm.value)
             this.router.navigate(['/']);
           }
         }
@@ -131,8 +131,8 @@ export class EditarTrabajoComponent implements OnInit {
         },
         error: err => {
           console.log('Fail ' + JSON.stringify(err.error));
-          console.log(JSON.stringify(this.trabajo));
-          console.log(this.trabForm.value)
+          console.log('Educaión: ' +  JSON.stringify(this.trabajo));
+          console.log('Lo que se completó en el formulario: ' +  this.trabForm.value)
           this.router.navigate(['/']);
         }
       })
