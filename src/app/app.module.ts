@@ -9,12 +9,12 @@ import { DatePipe } from '@angular/common';
 import { AppComponent } from './app.component';
 import { EditarEducacionComponent } from './components/editar/editar-educacion/editar-educacion.component';
 import { EditarHabilidadComponent } from './components/editar/editar-habilidad/editar-habilidad.component';
+import { EditarPersonaComponent } from './components/editar/editar-persona/editar-persona.component';
 import { EditarProyectoComponent } from './components/editar/editar-proyecto/editar-proyecto.component';
 import { EditarTrabajoComponent } from './components/editar/editar-trabajo/editar-trabajo.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
-import { TabsComponent } from './components/home/tabs/tabs.component';
 import { LoginComponent } from './components/login/login.component';
 import { EducacionComponent } from './components/sections/educacion/educacion.component';
 import { HabilidadComponent } from './components/sections/habilidad/habilidad.component';
@@ -22,7 +22,11 @@ import { ProyectoComponent } from './components/sections/proyecto/proyecto.compo
 import { TrabajoComponent } from './components/sections/trabajo/trabajo.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { InterceptorService } from './services/interceptor.service';
-import { EditarPersonaComponent } from './components/editar/editar-persona/editar-persona.component';
+import { EditarRedesComponent } from './components/editar/editar-redes/editar-redes.component';
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideStorage,getStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,6 @@ import { EditarPersonaComponent } from './components/editar/editar-persona/edita
     EducacionComponent,
     ProyectoComponent,
     HabilidadComponent,
-    TabsComponent,
     HeaderComponent,
     FooterComponent,
     LoginComponent,
@@ -42,13 +45,17 @@ import { EditarPersonaComponent } from './components/editar/editar-persona/edita
     EditarTrabajoComponent,
     EditarEducacionComponent,
     EditarPersonaComponent,
+    EditarRedesComponent,
+    ContactFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideStorage(() => getStorage())
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true

@@ -19,6 +19,7 @@ export class ProyectoComponent implements OnInit {
 
   ngOnInit(): void {
     this.verProyecto();
+    this.scrollToElement();
     this.auth.isLogged.subscribe({ next: data => this.isLoggedIn = data })
 
   }
@@ -28,6 +29,12 @@ export class ProyectoComponent implements OnInit {
       error: err => { console.log(err) }
     })
   }
+
+  scrollToElement(): void {
+    const target = document.getElementById("proyecto")!;
+    target.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+  }
+
   onChoose(id: number) {
     this.id_proy = id;
   }

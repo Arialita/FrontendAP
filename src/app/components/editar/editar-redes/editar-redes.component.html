@@ -1,57 +1,70 @@
-<app-header></app-header>
+<app-header [editRedes]="editRedes"></app-header>
 <div class="container form mt-5">
-    <form (ngSubmit)="onSubmit()" [formGroup]="habForm">
+    <form (ngSubmit)="onSubmit(redesForm.value)" [formGroup]="redesForm">
         <div class="container">
             <div class="row">
                 <div class="col title">
-                    <h2>{{title}}</h2>
+                    <h2>Editar redes</h2>
                     <hr>
                 </div>
             </div>
             <div class="row row-cols-1">
                 <div class="col pb-3">
-                    <label for="nombre_habilidad">Habilidad:</label>
-                    <input type="text" id="nombre_habilidad" class="input" [ngClass]="nombre_habilidadClass()" required formControlName="nombre_hab" maxlength="100">
-                    <div *ngIf="!nombre_habilidad.invalid && nombre_habilidad.dirty && nombre_habilidad.touched"
-                        class="valid-msg">
-                        Todo parece estar correcto.
+                    <label for="instagram">Instagram</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-instagram fs-4"></i></span>
+                        <input type="url" id="instagram" class="input form-control" [ngClass]="instagramClass()"
+                            formControlName="instagram" maxlength="255">
                     </div>
-                    <div *ngIf="nombre_habilidad.errors?.['maxlength'] && nombre_habilidad.touched && nombre_habilidad.dirty"
+                    <div *ngIf="!instagram.invalid && instagram.dirty && instagram.touched" class="valid-msg">
+                        Todo parece estar correcto
+                    </div>
+                    <div *ngIf="instagram.invalid && instagram.dirty && instagram.touched" class="error-msg">
+                        Este campo es obligatorio
+                    </div>
+                    <div *ngIf="instagram.dirty && instagram.touched && instagram.errors?.['maxlength']"
                         class="error-msg">
-                        El nombre de la habilidad no debe superar los 100 carácteres.
+                        No debe superar los 255 carácteres.
                     </div>
-                    <div *ngIf="nombre_habilidad.errors?.['required'] && nombre_habilidad.dirty && nombre_habilidad.touched"
-                        class="error-msg">
-                        Este campo es obligatorio.
-                    </div>
-                </div>
-                <div class="col">
-                    <input type="radio" class="radio" id="idioma" name="skill" (click)="onToggle(true)">
-                    <label for="idioma" class="radio-label"> Idioma</label>
-                    <input type="radio" class="radio" id="otro" name="skill" checked (click)="onToggle(false)">
-                    <label for="otro" class="radio-label"> Otro</label>
                 </div>
                 <div class="col mb-3">
-                    <label for="nivel" class="radio-label">Nivel: </label>
-                    <select name="nivel" class="input" id="nivel" formControlName="nivel">
-                        <option value="20" id="20">Principiante</option>
-                        <option value="40" id="40">Principiante-intermedio</option>
-                        <option value="60" id="60">Intermedio</option>
-                        <option value="80" id="80">Intermedio-avanzado</option>
-                        <option value="100" id="100">Avanzado</option>
-                        <option value="110" id="110" *ngIf="idioma">Nativo</option>
-                    </select>
-                    <div *ngIf="!nivel.invalid && nivel.dirty && nivel.touched" class="valid-msg">
+                    <label for="github">Github</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-github fs-4"></i></span>
+                        <input type="url" id="linkedIn" class="input form-control" [ngClass]="githubClass()"
+                            formControlName="github" maxlength="255">
+                    </div>
+                    <div *ngIf="!github.invalid && github.dirty && github.touched" class="valid-msg">
                         Todo parece estar correcto.
                     </div>
-                    <div *ngIf="nivel.invalid && nivel.dirty && nivel.touched" class="error-msg">
+                    <div *ngIf="github.invalid && github.dirty && github.touched" class="error-msg">
                         Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="github.errors?.['maxlength'] && github.dirty && github.touched" class="error-msg">
+                        No debe superar los 255 carácteres.
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="linkedIn">LinkedIn</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-linkedin fs-4"></i></span>
+                        <input type="url" id="linkedIn" class="input form-control" [ngClass]="linkedInClass()"
+                            formControlName="linkedIn" maxlength="255">
+                    </div>
+                    <div *ngIf="!linkedIn.invalid && linkedIn.dirty && linkedIn.touched" class="valid-msg">
+                        Todo parece estar correcto.
+                    </div>
+                    <div *ngIf="linkedIn.invalid && linkedIn.dirty && linkedIn.touched" class="error-msg">
+                        Este campo es obligatorio.
+                    </div>
+                    <div *ngIf="linkedIn.errors?.['maxlength'] && linkedIn.dirty && linkedIn.touched" class="error-msg">
+                        No debe superar los 255 carácteres.
                     </div>
                 </div>
                 <div class="col">
                     <div class="row row-cols-2">
                         <div class="col">
-                            <ng-container *ngIf="habForm.dirty && habForm.touched; else notEdited">
+                            <ng-container *ngIf="redesForm.touched && redesForm.dirty;else notEdited">
                                 <button class="btn btn-secondary" data-bs-target="#cancelarCambios"
                                     data-bs-toggle="modal" type="button">Cancelar
                                 </button>
@@ -59,7 +72,7 @@
                         </div>
                         <div class="col">
                             <button class="btn btn-primary" data-bs-target="#confirmarCambios" data-bs-toggle="modal"
-                                type="button" [disabled]="habForm.invalid">Guardar</button>
+                                type="button" [disabled]="redesForm.invalid">Guardar</button>
                         </div>
                     </div>
                 </div>
@@ -88,7 +101,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <h5 class="modal-title modal-text" id="cambiosGuardados">Cambios guardados</h5>
-                <button class="btn btn-primary" data-bs-dismiss="modal" routerLink="/home/habilidad">Ok</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal" routerLink="/home/proyecto">Ok</button>
             </div>
         </div>
     </div>
@@ -119,6 +132,7 @@
         </div>
     </div>
 </div>
+
 <ng-template #notEdited>
-    <button class="btn btn-secondary btn-form" (click)="onCancel()" type="button">Cancelar</button>
+    <button class="btn btn-secondary" (click)="onCancel()" type="button">Cancelar</button>
 </ng-template>

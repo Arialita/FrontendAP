@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Habilidad } from 'src/app/interface/habilidad.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { HabilidadService } from 'src/app/services/habilidad.service';
@@ -25,7 +25,7 @@ export class HabilidadComponent implements OnInit {
 
   scrollToElement(): void {
     const target = document.getElementById("habilidad")!;
-    target.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    target.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
   }
 
   verHabilidad(): void {

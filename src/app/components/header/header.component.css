@@ -11,3 +11,15 @@
     display: inline-block;
     padding-left: 0.5em;
 }
+
+.redes {
+    border: solid 1px #c8c8c8;
+    border-radius: 0.8em;
+}
+
+.leftarrow {
+    position: absolute;
+    top: 10%;
+    left: 3%;
+    width: fit-content;
+}

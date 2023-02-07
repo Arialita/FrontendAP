@@ -1,3 +1,19 @@
+<nav class="d-none d-sm-block">
+    <ul class="nav nav-tabs justify-content-end">
+        <li class="nav-item">
+          <button class="nav-link text-dark" data-bs-toggle="tab" routerLink="">Proyectos</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link text-dark" data-bs-toggle="tab" routerLink="/home/trabajo">Experiencia</button>
+        </li>
+        <li class="nav-item ">
+          <button class="nav-link text-dark" data-bs-toggle="tab"  routerLink="/home/educacion">Educación</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link text-dark active" data-bs-toggle="tab" aria-current="page" routerLink="/home/habilidad">Habilidades</button>
+        </li>
+      </ul>
+</nav>
 <section class="container pt-3" id="habilidad">
     <div class="row">
         <div class="col-10 col-sm-7">
@@ -15,7 +31,7 @@
             <div class="card mb-1">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6 col-sm-6 col-lg-4 col-md-6">
+                        <div class="col-6 col-sm-6 col-lg-4 col-md-6 mb-2">
                             <h5 class="card-title d-inline">{{item.nombre_hab}} </h5>
                         </div>
                         <div class="col-6 col-lg-8 col-sm-6 col-md-6 edit-delete-btns">
@@ -28,7 +44,7 @@
                             </button>
                         </div>
                     </div>
-                    <h6 class="card-subtitle">Nivel de conocimiento: </h6>
+                    <h6 class="card-subtitle text-muted">Nivel de conocimiento: </h6>
                     <p class="card-text">{{item.nivel_nombre}}</p>
                     <div class="progress" role="progressbar" aria-label="Nivel de habilidad" aria-valuenow=item.nivel
                         aria-valuemin="0" aria-valuemax="100" style="height: 20px">

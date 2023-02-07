@@ -15,7 +15,7 @@ export class HabilidadService {
   };
 
 
-  habURL = 'http://localhost:8080/habilidad/'
+  habURL = 'https://portfolioap-arialita.koyeb.app/habilidad/'
   constructor(private httpClient: HttpClient) { }
 
 

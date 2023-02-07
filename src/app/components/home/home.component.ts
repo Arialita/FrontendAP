@@ -9,14 +9,14 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  isLoggedIn:boolean=false;
-  usuario: Usuario = { nombre: '', apellido: '', ocupacion: '', localidad: '', provincia: '', acercaDe: '' };
+  isLoggedIn: boolean = false;
+  usuario: Usuario = { nombre: '', apellido: '', ocupacion: '', localidad: '', provincia: '', acercaDe: '', avatar: '', background: '' };
   constructor(private usrServ: UsuarioService, private auth: AuthService) {
   }
 
   ngOnInit(): void {
     this.verUsuario();
-    this.auth.currentUserSubject$.subscribe({next: data => this.isLoggedIn = data});
+    this.auth.currentUserSubject$.subscribe({ next: data => this.isLoggedIn = data });
   }
 
   verUsuario(): void {

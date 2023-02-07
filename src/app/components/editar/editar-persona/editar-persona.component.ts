@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/interface/usuario.interface';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -11,32 +11,46 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 
 export class EditarPersonaComponent {
-  persona: Usuario = { nombre: '', apellido: '', ocupacion: '', localidad: '', provincia: '', acercaDe: '' }
-
+  persona: Usuario = { nombre: '', apellido: '', ocupacion: '', localidad: '', provincia: '', acercaDe: '', avatar: '', background: '' }
+  isEdittingImg: boolean = false;
+  isLoading: boolean = false;
   persoForm!: FormGroup;
-
+  title!: string;
   constructor(
     private fb: FormBuilder,
     private persoServ: UsuarioService,
     private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    const img = this.activatedRoute.snapshot.params['img'];
     this.persoForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.maxLength(20)]],
       apellido: ['', [Validators.required, Validators.maxLength(20)]],
       ocupacion: ['', [Validators.required, Validators.maxLength(20)]],
       localidad: ['', [Validators.required, Validators.maxLength(50)]],
       provincia: ['', [Validators.required, Validators.maxLength(50)]],
-      acercaDe: ['', [Validators.required, Validators.maxLength(255)]]
+      acercaDe: ['', [Validators.required, Validators.maxLength(255)]],
+      avatar: '',
+      background:''
     })
     this.persoServ.verUsuario(1).subscribe({
       next: data => {
         this.persona = data,
-        this.persoForm.patchValue({ nombre: this.persona.nombre, apellido: this.persona.apellido, ocupacion: this.persona.ocupacion, localidad: this.persona.localidad, provincia: this.persona.provincia, acercaDe: this.persona.acercaDe })
+          this.persoForm.patchValue({ nombre: this.persona.nombre, apellido: this.persona.apellido, ocupacion: this.persona.ocupacion, localidad: this.persona.localidad, provincia: this.persona.provincia, acercaDe: this.persona.acercaDe, avatar: this.persona.avatar, background: this.persona.background })
       },
       error: err => console.log(err)
     })
+    this.persoServ.loaded.subscribe({
+      next: data => {
+        this.isLoading = data
+      }
+    })
+    if (img != undefined) {
+      this.isEdittingImg = true;
+      this.title = img.toString();
+    }
   }
 
   get nombre() {
@@ -109,19 +123,29 @@ export class EditarPersonaComponent {
 
   onSubmit() {
     let temp: Usuario = this.persoForm.value;
+    if (this.persoServ.url[0] != '') {
+      temp.avatar = this.persoServ.url[0];
+      temp.background = this.persoServ.url[1]
+    }
     this.persoServ.editarPersona(temp).subscribe(
       {
         next: () => {
           this.persoForm.reset();
         },
         error: err => {
-          console.log('Fail ' + JSON.stringify(err.error));
-          console.log(JSON.stringify(this.persona));
-          console.log(this.persoForm.value)
+          console.log('Fail ' + JSON.stringify(err));
           this.router.navigate(['/']);
         }
       }
     );
+  }
+
+  uploadImage($event: any) {
+    this.isLoading = true;
+    const nombre = $event.target.id;
+    if (nombre == 'avatar' || nombre == 'background') {
+      this.persoServ.uploadImage($event, nombre);
+    }
   }
 
   onCancel() {

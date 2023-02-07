@@ -14,7 +14,7 @@ export class ProyectoService {
     })
   };
 
-  proyectoURL: string = 'http://localhost:8080/proyecto/';
+  proyectoURL: string = 'https://portfolioap-arialita.koyeb.app/proyecto/';
 
   constructor(private httpClient: HttpClient) { }
 

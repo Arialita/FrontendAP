@@ -49,7 +49,8 @@ export class LoginComponent implements OnInit{
   onSubmit(event:Event){
     event.preventDefault;
     this.auth.iniciarSesion(this.loginForm.value).subscribe(
-      {next: () => this.router.navigate(['/home'])
+      {next: () => this.router.navigate(['/home']),
+      error: () => alert('Usuario y/o contraseña incorrectos')
       }
     )
   }

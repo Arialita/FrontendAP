@@ -1,0 +1,45 @@
+<app-header [login]="true"></app-header>
+<div class="container form bg-light mt-4">
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
+        <div class="container">
+            <div class="row title">
+                <div class="col">
+                    <h2>Contactame</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row row-cols-1 ">
+                <div class="col mb-3">
+                    <label class="form-label" for="email">Correo electrónico:</label>
+                    <input class="input" [ngClass]="emailClass()" type="email" id="email" formControlName="Email"
+                        placeholder="email@ejemplo.com" required>
+                    <div *ngIf="email.invalid && email.dirty && email.touched" class="error-msg">
+                        <p>Parece que no ingresaste un correo electrónico</p>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label class="form-label" for="nombre">Nombre completo</label>
+                    <input class="input" [ngClass]="nombreClass()" type="nombre" id="nombre" formControlName="Nombre"
+                        placeholder="Cuentame cómo te llamas" required>
+                    <div *ngIf="nombre.invalid && nombre.dirty && nombre.touched" class="error-msg">
+                        <p>Necesito saber cómo te llamas.</p>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="_subject">Asunto</label>
+                    <input class="input" type="text" name="_subject" id="_subject" formControlName="_subject"  value="Contact form submitted">
+                </div>
+                <div class="col mb-4">
+                    <label for="comment">Comentarios</label>
+                    <textarea class="input" formControlName="Comment" [ngClass]="commentClass()"  name="comment"></textarea>
+                </div>
+                <div *ngIf="comment.invalid && comment.dirty && comment.touched" class="error-msg">
+                    <p>Te faltó completar este campo.</p>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary w-100" type="submit" [disabled]="!contactForm.valid">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

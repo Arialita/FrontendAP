@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-header',
@@ -8,15 +9,22 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn:boolean = false;
-  @Input() login:boolean = false;
-  constructor(private router: Router, private auth:AuthService){}
+  linkInstagram: string = '';
+  linkLinkedIn: string = '';
+  linkGithub: string = '';
+  isLoggedIn: boolean = false;
+  @Input() login: boolean = false;
+  @Input() editRedes: boolean = false;
+  constructor(private router: Router, private auth: AuthService, private redesServ: UsuarioService) { }
 
   ngOnInit(): void {
-    this.auth.isLogged.subscribe({next:data=>this.isLoggedIn=data})
+    this.auth.isLogged.subscribe({ next: data => this.isLoggedIn = data })
+    this.redesServ.verRedes().subscribe({
+      next: data => { this.linkGithub = data.github; this.linkInstagram = data.instagram; this.linkLinkedIn = data.linkedIn }
+    })
   }
 
-  logOut(){
+  logOut() {
     sessionStorage.clear();
     this.auth.setUsuarioAutenticado(null);
     this.auth.setLoggedIn();

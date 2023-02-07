@@ -1,51 +1,70 @@
-
 <ng-container *ngIf="!login; else isLogin">
-<!--Para el resto de los dispositivos-->
-<nav class="nav shadow justify-content-end d-sm-flex sticky-top d-none px-3 pt-2 pb-2 bg-light-subtle">
-    <div class="icon-container">
-        <i class="bi bi-terminal icon fs-2 align-middle"></i><p class="fs-6 user-select-none">Argentina programa</p>
-    </div>
-    <button class="btn btn-outline-light text-dark ms-auto" type="button"><i class="bi bi-envelope fs-3"></i></button>
-    <button class="btn btn-outline-light text-dark " type="button"><i class="bi bi-instagram fs-4"></i></button>
-    <button class="btn btn-outline-light text-dark " type="button"><i class="bi bi-github fs-4"></i></button>
-    <button class="btn btn-outline-light text-dark " type="button"><i class="bi bi-linkedin fs-4"></i></button>
-    <div class="vr text-dark mx-1"></div>
-    <button class=" btn btn-outline-light text-dark" type="button" *ngIf="!isLoggedIn;else logout" [routerLink]="['/login']">Log in</button>
-</nav>
+    <div class="test"></div>
+    <!--Para el resto de los dispositivos-->
+    <nav class="nav shadow justify-content-end d-sm-flex sticky-top d-none px-3 pt-2 pb-2 bg-light-subtle">
+        <div class="icon-container">
+            <i class="bi bi-terminal icon fs-2 align-middle"></i>
+            <p class="fs-6 user-select-none">Argentina programa</p>
+        </div>
+        <button class="btn btn-outline-light text-dark ms-auto" routerLink="/contacto"
+            type="button"><i class="bi bi-envelope fs-3"></i></button>
+        <div [ngClass]="{'redes': isLoggedIn}">
+            <a class="btn btn-outline-light text-dark " href={{linkInstagram}} target="_blank" rel="author"><i
+                    class="bi bi-instagram fs-4"></i></a>
+            <a class="btn btn-outline-light text-dark " href="{{linkGithub}}" target="_blank" rel="author"><i class="bi bi-github fs-4"></i></a>
+            <a class="btn btn-outline-light text-dark " href="{{linkLinkedIn}}" target="_blank" rel="author"><i class="bi bi-linkedin fs-4"></i></a>
+        </div>
+        <button class="btn btn-light" *ngIf="isLoggedIn && !editRedes" [routerLink]="['/editar/redes']">
+            <i class="bi bi-pen"></i>
+        </button>
+        <div class="vr text-dark mx-1"></div>
+        <button class=" btn btn-outline-light text-dark" type="button" *ngIf="!isLoggedIn;else logout"
+            [routerLink]="['/login']">Log in</button>
+    </nav>
 
-<!--Para móviles-->
-<nav class="nav shadow justify-content-end sticky-top d-xs-flex d-sm-none px-3  bg-light">
-    <div class="icon-container ms-auto pt-2">
-        <i class="bi bi-terminal icon fs-2 align-middle"></i><p class="fs-6 user-select-none">Argentina programa</p>
-    </div>
+    <!--Para móviles-->
+    <nav class="nav shadow justify-content-end sticky-top d-xs-flex d-sm-none px-3  bg-light">
+        <div class="icon-container ms-auto pt-2">
+            <i class="bi bi-terminal icon fs-2 align-middle"></i>
+            <p class="fs-6 user-select-none">Argentina programa</p>
+        </div>
         <ul class="navbar-nav ms-auto">
             <button class="btn ms-auto btn-outline-light text-dark" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-list fs-2"></i>
             </button>
             <li class="nav-item dropdown">
                 <ul class="dropdown-menu dropdown-menu-light">
-                    <li><button class=" btn btn-light dropdown-item" aria-pressed="true" routerLink="home" type="button">Home</button></li>
-                    <li><button class=" btn btn-light dropdown-item" routerLink="trabajo" type="button">Trabajo</button></li>
-                    <li><button class=" btn btn-light dropdown-item" routerLink="educacion" type="button">Educación</button></li>
-                    <li><button class=" btn btn-light dropdown-item" routerLink="proyectos" type="button">Proyectos</button></li>
-                    <li><button class=" btn btn-light dropdown-item" routerLink="habilidades" type="button">Habilidades</button></li>
-                    <li><button class=" btn btn-light dropdown-item"  type="button">Contacto</button></li>
-                    <li><hr class="dropdown-divider bg-light "></li>
-                    <li><button class=" btn btn-light dropdown-item" *ngIf="!isLoggedIn;else logoutm" type="button" [routerLink]="['/login']" >Log in</button></li>
+                    <li><button class=" btn btn-light dropdown-item" aria-pressed="true" routerLink="home"
+                            type="button">Home</button></li>
+                    <li><button class=" btn btn-light dropdown-item" routerLink="/home/trabajo" type="button">Trabajo</button>
+                    </li>
+                    <li><button class=" btn btn-light dropdown-item" routerLink="/home/educacion"
+                            type="button">Educación</button></li>
+                    <li><button class=" btn btn-light dropdown-item" routerLink="/home/proyectos"
+                            type="button">Proyectos</button></li>
+                    <li><button class=" btn btn-light dropdown-item" routerLink="/home/habilidades"
+                            type="button">Habilidades</button></li>
+                    <li><button class=" btn btn-light dropdown-item" type="button" routerLink="/contacto">Contacto</button></li>
+                    <li>
+                        <hr class="dropdown-divider bg-light ">
+                    </li>
+                    <li><button class=" btn btn-light dropdown-item" *ngIf="!isLoggedIn;else logoutm" type="button"
+                            [routerLink]="['/login']">Log in</button></li>
                 </ul>
             </li>
         </ul>
-</nav>
+    </nav>
 </ng-container>
 <ng-template #isLogin>
     <nav class="nav shadow justify-content-end sticky-top pt-2 pb-2 bg-light-subtle">
-        <div class="me-auto">
-            <button class="btn" routerLink="home"><i class="bi bi-arrow-left fs-3"></i></button>
-        </div>
-        <div class="icon-container me-auto">
-            <i class="bi bi-terminal icon fs-2 align-middle"></i><p class="fs-6 user-select-none">Argentina programa</p>
+        <button class="btn leftarrow" routerLink="home"><i class="bi bi-arrow-left fs-3"></i></button>
+        <div class="icon-container ms-auto me-auto">
+            <i class="bi bi-terminal icon fs-2 align-middle"></i>
+            <p class="fs-6 user-select-none">Argentina programa</p>
         </div>
     </nav>
 </ng-template>
-<ng-template #logoutm><button class=" btn btn-light dropdown-item" type="button"  (click)="logOut()" >Cerrar sesión</button></ng-template>
-<ng-template #logout><button class=" btn btn-outline-light text-dark" type="button" (click)="logOut()">Cerrar sesión</button></ng-template>
+<ng-template #logoutm><button class=" btn btn-light dropdown-item" type="button" (click)="logOut()">Cerrar
+        sesión</button></ng-template>
+<ng-template #logout><button class=" btn btn-outline-light text-dark" type="button" (click)="logOut()">Cerrar
+        sesión</button></ng-template>

@@ -1,6 +1,6 @@
 import { registerLocaleData } from '@angular/common';
 import myLocaleEs from '@angular/common/locales/es';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Educacion } from 'src/app/interface/educacion.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { EducacionService } from 'src/app/services/educacion.service';
@@ -27,7 +27,7 @@ export class EducacionComponent implements OnInit {
 
   scrollToElement(): void {
     const target = document.getElementById("educacion")!;
-    target.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    target.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
   }
 
   verEducacion(): void {

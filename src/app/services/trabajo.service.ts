@@ -15,7 +15,7 @@ export class TrabajoService {
     })
   };
 
-  trabajoURL:string = 'http://localhost:8080/trabajo/';
+  trabajoURL:string = 'https://portfolioap-arialita.koyeb.app/trabajo/';
 
   constructor(private httpClient: HttpClient) { }
 

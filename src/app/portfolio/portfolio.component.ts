@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-portfolio',
@@ -7,9 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./portfolio.component.css']
 })
 export class PortfolioComponent implements OnInit {
-  constructor(private router:Router){}
+  bgUrl:string = ' ';
+  constructor(private persoServ: UsuarioService ){}
   ngOnInit(): void {
-    
+    this.persoServ.verUsuario(1).subscribe({
+      next: data => this.bgUrl = data.background
+    })
   }
   
 }

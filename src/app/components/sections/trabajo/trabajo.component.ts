@@ -1,6 +1,6 @@
 import { registerLocaleData } from '@angular/common';
 import myLocaleEs from '@angular/common/locales/es';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Trabajo } from 'src/app/interface/trabajo.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { TrabajoService } from 'src/app/services/trabajo.service';
@@ -28,7 +28,7 @@ export class TrabajoComponent implements OnInit {
 
   scrollToElement(): void {
     const target = document.getElementById("trabajo")!;
-    target.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    target.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
   }
   verTrabajo(): void {
     this.trabServ.verTrabajos().subscribe({

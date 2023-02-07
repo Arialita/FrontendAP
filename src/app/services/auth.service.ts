@@ -7,7 +7,7 @@ import { TokenDto } from '../model/token-dto';
   providedIn: 'root'
 })
 export class AuthService {
-  url = 'http://localhost:8080/auth/login';
+  url = 'https://portfolioap-arialita.koyeb.app/auth/login';
   currentUserSubject$!:BehaviorSubject<any>;
   temp:boolean = false;
   isLoggedIn$:BehaviorSubject<boolean>;

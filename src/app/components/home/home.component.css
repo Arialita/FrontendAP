@@ -4,15 +4,25 @@
 }
 
 .img{
-    height: 100px;
-    width: 100%;
-    background: white;
+    height: 200px;
+    width: 200px;
+    align-self: center;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .card{
     margin-top: 20%;
+    background: transparent;
+}
+
+.img {
+    position: relative;
 }
 
 .test {
-    vertical-align: middle;
+    z-index: 999;
+    position:absolute;
+    right: 0;
+    bottom: 0;
 }
