@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { UsuarioService } from '../services/usuario.service';
 
 @Component({
@@ -9,10 +9,14 @@ import { UsuarioService } from '../services/usuario.service';
 })
 export class PortfolioComponent implements OnInit {
   bgUrl:string = ' ';
-  constructor(private persoServ: UsuarioService ){}
+  isLoggedIn:boolean = false;
+  constructor(private persoServ: UsuarioService, private authServ: AuthService ){}
   ngOnInit(): void {
     this.persoServ.verUsuario(1).subscribe({
       next: data => this.bgUrl = data.background
+    });
+    this.authServ.isLoggedIn$.subscribe({
+      next: data => this.isLoggedIn = data
     })
   }
   

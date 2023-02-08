@@ -5,15 +5,14 @@
             <div class="card border-0">
                 <div class="img">
                     <img class="card-img-top img" src="{{usuario.avatar}}" alt="Foto de perfil">
-                    <button class="btn text-light test" type="button" routerLink="/editar/usuario/avatar">
+                    <button class="btn text-light test" *ngIf="isLoggedIn" type="button" routerLink="/editar/usuario/avatar">
                         <i class="bi bi-pen"></i>
                     </button>
                 </div>
                 <div class="card-body bg-light">
                     <h1 class="card-title text-center">{{usuario.nombre}} {{usuario.apellido}}
-                        <button *ngIf="isLoggedIn" class="btn btn-light test" type="button"
-                            routerLink="/editar/usuario">
-                            Editar usuario <i class="bi bi-pen"></i>
+                        <button *ngIf="isLoggedIn" class="btn btn-light edit-usr" type="button"
+                            routerLink="/editar/usuario">Editar <i class="bi bi-pen"></i>
                         </button>
                     </h1>
                     <h3 class="card-subtitle ">{{usuario.ocupacion}}</h3>
