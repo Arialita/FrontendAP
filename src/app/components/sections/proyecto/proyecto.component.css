@@ -1,0 +1,27 @@
+.img-proyecto {
+    display: flex;
+    position: relative;
+}
+
+.img-proyecto img {
+    position: static;
+    object-fit: cover;
+    max-height: min-content;
+}
+
+.edit-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.add-img {
+    display: flex;
+    background: #dedede;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-img button {
+    height: fit-content;
+}

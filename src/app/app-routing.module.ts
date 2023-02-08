@@ -33,7 +33,6 @@ const routes: Routes = [
   { path: 'editar/educacion/:id', component: EditarEducacionComponent, canActivate: [GuardGuard] },
   { path: 'editar/redes', component: EditarRedesComponent, canActivate: [GuardGuard] },
   { path: 'editar/usuario', component: EditarPersonaComponent, canActivate: [GuardGuard] },
-  { path: 'editar/usuario/:img', component: EditarPersonaComponent, canActivate: [GuardGuard] },
   { path: 'nuevo/proyecto', component: EditarProyectoComponent, canActivate: [GuardGuard] },
   { path: 'nuevo/trabajo', component: EditarTrabajoComponent, canActivate: [GuardGuard] },
   { path: 'nuevo/educacion', component: EditarEducacionComponent, canActivate: [GuardGuard] },

@@ -55,7 +55,7 @@ export class UsuarioService {
     list(imagesRef)
       .then(async (res) => {
         for (let i = 0; i < res.items.length; i++) {
-          const item = res.items[i];
+          const item = res.items[i];    
           this.url[i] = await getDownloadURL(item);
         };
         this.loaded$.next(false);

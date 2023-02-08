@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Proyecto } from 'src/app/interface/proyecto.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { ImageService } from 'src/app/services/image.service';
 import { ProyectoService } from 'src/app/services/proyecto.service';
 
 @Component({
@@ -14,14 +15,13 @@ export class ProyectoComponent implements OnInit {
   isLoggedIn: boolean = false;
   proyecto: Proyecto[] = [];
 
-  constructor(private proyServ: ProyectoService, private auth: AuthService, private router: Router) { }
+  constructor(private proyServ: ProyectoService, private auth: AuthService, private router: Router, private imgServ: ImageService) { }
 
 
   ngOnInit(): void {
     this.verProyecto();
     this.scrollToElement();
-    this.auth.isLogged.subscribe({ next: data => this.isLoggedIn = data })
-
+    this.auth.isLogged.subscribe({ next: data => this.isLoggedIn = data });
   }
   verProyecto(): void {
     this.proyServ.verProyecto().subscribe({
@@ -38,12 +38,18 @@ export class ProyectoComponent implements OnInit {
   onChoose(id: number) {
     this.id_proy = id;
   }
+
   onDelete() {
+    const name = 'img' + this.id_proy;
     this.proyServ.borrarProyecto(this.id_proy).subscribe(
       {
-        next: data => this.proyecto = data,
+        next: data => {this.proyecto = data; this.imgServ.deleteImg(name)},
         error: err => alert('Error: ' + JSON.stringify(err)) 
       }
     )
+  }
+
+  goTo(id:number, isimg:boolean | null){
+    this.router.navigate([`/editar/proyecto/${id}` ], {queryParams: { img: isimg }, queryParamsHandling: 'merge',})
   }
 }

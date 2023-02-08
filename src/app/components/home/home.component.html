@@ -5,7 +5,7 @@
             <div class="card border-0">
                 <div class="img">
                     <img class="card-img-top img" src="{{usuario.avatar}}" alt="Foto de perfil">
-                    <button class="btn text-light test" *ngIf="isLoggedIn" type="button" routerLink="/editar/usuario/avatar">
+                    <button class="btn text-light test" *ngIf="isLoggedIn" type="button" (click)="goTo()">
                         <i class="bi bi-pen"></i>
                     </button>
                 </div>

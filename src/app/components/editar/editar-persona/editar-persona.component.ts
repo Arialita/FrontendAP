@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/interface/usuario.interface';
+import { ImageService } from 'src/app/services/image.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -16,15 +17,20 @@ export class EditarPersonaComponent {
   isLoading: boolean = false;
   persoForm!: FormGroup;
   title!: string;
+  imgName!: string;
+  img!:string;
   constructor(
     private fb: FormBuilder,
     private persoServ: UsuarioService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private imgServ: ImageService
   ) { }
 
   ngOnInit(): void {
-    const img = this.activatedRoute.snapshot.params['img'];
+    this.activatedRoute.queryParams.subscribe({
+      next: data => { this.img = data['img'] }
+    })
     this.persoForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.maxLength(20)]],
       apellido: ['', [Validators.required, Validators.maxLength(20)]],
@@ -42,14 +48,17 @@ export class EditarPersonaComponent {
       },
       error: err => console.log(err)
     })
-    this.persoServ.loaded.subscribe({
+    this.imgServ.loaded.subscribe({
       next: data => {
         this.isLoading = data
       }
     })
-    if (img != undefined) {
+    this.imgServ.imgName.subscribe({
+      next: data => this.imgName = data
+    })
+    if (this.img != undefined) {
       this.isEdittingImg = true;
-      this.title = img.toString();
+      this.title = this.img;
     }
   }
 
@@ -123,9 +132,10 @@ export class EditarPersonaComponent {
 
   onSubmit() {
     let temp: Usuario = this.persoForm.value;
-    if (this.persoServ.url[0] != '') {
-      temp.avatar = this.persoServ.url[0];
-      temp.background = this.persoServ.url[1]
+    if (this.imgName == 'avatar') {
+      temp.avatar = this.imgServ.url;
+    } else if (this.imgName == 'background'){
+      temp.background = this.imgServ.url
     }
     this.persoServ.editarPersona(temp).subscribe(
       {
@@ -144,7 +154,7 @@ export class EditarPersonaComponent {
     this.isLoading = true;
     const nombre = $event.target.id;
     if (nombre == 'avatar' || nombre == 'background') {
-      this.persoServ.uploadImage($event, nombre);
+      this.imgServ.uploadImg($event, nombre);
     }
   }
 

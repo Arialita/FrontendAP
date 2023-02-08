@@ -2,7 +2,7 @@
 <div class="card">
   <div class="card-header bg-white border-bottom-0"
     style="background-image: url({{bgUrl}}); background-size: 100% 100%;">
-    <button class="btn text-light" *ngIf="isLoggedIn" type="button" routerLink="/editar/usuario/background">
+    <button class="btn text-light" *ngIf="isLoggedIn" type="button" (click)="goTo()">
       <i class="bi bi-pen"></i>
     </button>
     <app-home></app-home>
