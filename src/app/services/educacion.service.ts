@@ -15,7 +15,7 @@ export class EducacionService {
   };
 
 eduURL:string = 'https://portfolioap-arialita.koyeb.app/educacion/';
-//:string = 'http://localhost:8080/educacion/';
+//eduURL:string = 'http://localhost:8080/educacion/';
   constructor(private httpClient: HttpClient) { }
 
   verEducacion(): Observable<Educacion[]> {

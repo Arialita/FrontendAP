@@ -33,13 +33,20 @@
                 <div class="row g-0">
                     <div class="col-md-2 col-sm-4 col-12 img-proyecto" *ngIf="item.img; else addImg">
                         <img src="{{item.img}}" class="rounded-start img-fluid" alt="imagen del proyecto">
-                        <button class="btn btn-light edit-btn"  (click)="goTo(item.id_proyecto!, true)" *ngIf="isLoggedIn">
-                            <div class="d-none d-sm-inline"> </div><i class="bi bi-pen"></i>
-                        </button>
+                        <div class="edit-btn">
+                            <button class="btn btn-light" *ngIf="isLoggedIn" data-bs-target="#eliminarImg"
+                                data-bs-toggle="modal" (click)="onChooseImg(item)" type="bu
+                                    ">
+                                <div class="d-none d-sm-inline"></div> <i class="bi bi-trash3"></i>
+                            </button>
+                            <button class="btn btn-light" (click)="goTo(item.id_proyecto!, true)" *ngIf="isLoggedIn">
+                                <div class="d-none d-sm-inline"> </div><i class="bi bi-pen"></i>
+                            </button>
+                        </div>
                     </div>
                     <ng-template #addImg>
                         <div class="col-md-2 col-sm-4 col-12 add-img">
-                            <button class="btn"  (click)="goTo(item.id_proyecto!, true)" *ngIf="isLoggedIn">
+                            <button class="btn" (click)="goTo(item.id_proyecto!, true)" *ngIf="isLoggedIn">
                                 <i class="bi bi-plus-square-dotted"></i>
                             </button>
                         </div>
@@ -81,6 +88,22 @@
                         <button class="btn btn-danger modal-btn" data-bs-target="#eliminado" data-bs-toggle="modal"
                             type="button
                         " (click)="onDelete()">Eliminar de todos modos</button>
+                        <button class="btn btn-secondary modal-btn" data-bs-dismiss="modal">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="eliminarImg" aria-hidden="true" aria-labelledby="eliminarImgLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <i class="bi bi-exclamation-circle warn-sign"></i>
+                        <h5 class="modal-title modal-text" id="eliminarImgLabel">¿Seguro que desea eliminar la imagen?
+                        </h5>
+                        <p class="modal-text">No podra recuperarlo.</p>
+                        <button class="btn btn-danger modal-btn" data-bs-target="#eliminado" data-bs-toggle="modal"
+                            type="button
+                        " (click)="onDeleteImg()">Eliminar de todos modos</button>
                         <button class="btn btn-secondary modal-btn" data-bs-dismiss="modal">Volver</button>
                     </div>
                 </div>

@@ -15,6 +15,8 @@ export class ProyectoComponent implements OnInit {
   isLoggedIn: boolean = false;
   proyecto: Proyecto[] = [];
 
+  tempImg!:Proyecto;
+
   constructor(private proyServ: ProyectoService, private auth: AuthService, private router: Router, private imgServ: ImageService) { }
 
 
@@ -51,5 +53,18 @@ export class ProyectoComponent implements OnInit {
 
   goTo(id:number, isimg:boolean | null){
     this.router.navigate([`/editar/proyecto/${id}` ], {queryParams: { img: isimg }, queryParamsHandling: 'merge',})
+  }
+
+  onChooseImg(proyecto: Proyecto){
+    this.id_proy = proyecto.id_proyecto!;
+    this.tempImg = proyecto;
+  }
+  onDeleteImg(){
+    this.tempImg.img = '';
+    const name = 'img' + this.id_proy;
+    this.imgServ.deleteImg(name);
+    this.proyServ.editarProyecto(this.tempImg, this.id_proy).subscribe({
+      next: () => {this.verProyecto(); this.router.navigate(['/'])}
+    })
   }
 }
